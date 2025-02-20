@@ -9,14 +9,20 @@ import Loans from "./pages/Loans";
 import Services from "./pages/Services";
 import Settings from "./pages/Settings";
 import Unfound from "./pages/Unfound";
+import Header from "./layouts/header/Header";
+import Sidebar from "./layouts/sidebar/Sidebar";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="app">
-        <div className="sidebar"></div>
+        <div className="sidebar">
+          <Sidebar />
+        </div>
         <div className="main">
-          <div className="header"></div>
+          <div className="header">
+            <Header />
+          </div>
           <div className="main_content">
             <Routes>
               <Route index path="/" element={<Dashboard />} />
