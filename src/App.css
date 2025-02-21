@@ -15,4 +15,29 @@ body {
 .app {
   width: 100%;
   height: 100%;
+  display: flex;
+}
+.sidebar {
+  width: 15%;
+  max-width: 225px;
+  height: 100%;
+  border: 1px solid black;
+}
+.main {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.header {
+  width: 100%;
+  height: 75px;
+  border: 1px solid black;
+}
+.main_content {
+  width: 100%;
+  max-width: 1440px;
+  flex: 1;
+  border: 1px solid black;
 }
