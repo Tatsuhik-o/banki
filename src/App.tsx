@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, useRouteError } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { mobileContext } from "./utils/context.ts";
 import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
@@ -49,14 +49,15 @@ function App() {
             <div className="main_content">
               <Routes>
                 <Route index path="/" element={<Dashboard />} />
-                <Route index path="/transactions" element={<Transactions />} />
-                <Route index path="/accounts" element={<Accounts />} />
-                <Route index path="/investments" element={<Investments />} />
-                <Route index path="/cards" element={<Cards />} />
-                <Route index path="/loans" element={<Loans />} />
-                <Route index path="/services" element={<Services />} />
-                <Route index path="/settings" element={<Settings />} />
-                <Route index path="*" element={<Unfound />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/accounts" element={<Accounts />} />
+                <Route path="/investments" element={<Investments />} />
+                <Route path="/cards" element={<Cards />} />
+                <Route path="/loans" element={<Loans />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="*" element={<Unfound />} />
               </Routes>
             </div>
           </div>

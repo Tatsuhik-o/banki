@@ -27,7 +27,7 @@ export const nav_bar = [
   },
   {
     icon: faCreditCard,
-    name: "Credit Cards",
+    name: "Cards",
   },
   {
     icon: faPiggyBank,
