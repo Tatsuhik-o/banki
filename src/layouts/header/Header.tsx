@@ -42,10 +42,15 @@ const useStyles = makeStyles({
     display: "flex",
     gap: "25px",
   },
-  icon: {
+  icon_wrapper: {
+    width: "45px",
+    height: "45px",
     backgroundColor: "#F5F7FA",
     borderRadius: "50%",
     overflow: "hidden",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     padding: "0.65rem",
     cursor: "pointer",
   },
@@ -61,6 +66,7 @@ const useStyles = makeStyles({
   },
   input: {
     position: "relative",
+    width: "225px",
     "& input": {
       height: "100%",
       width: "100%",
@@ -95,7 +101,7 @@ export default function Header() {
     const fast = new Promise((resolve) => {
       setTimeout(() => {
         resolve("placeholder_image.png");
-      }, 100);
+      }, 250);
     });
 
     const fetchNewImage = async (): Promise<string> => {
@@ -122,18 +128,12 @@ export default function Header() {
               />
               <input type="text" placeholder="Search for something ..." />
             </div>
-            <FontAwesomeIcon
-              icon={faGear}
-              color="#92A8CE"
-              className={classes.icon}
-              fontSize={20}
-            />
-            <FontAwesomeIcon
-              icon={faBell}
-              color="#FD657C"
-              className={classes.icon}
-              fontSize={20}
-            />
+            <div className={classes.icon_wrapper}>
+              <FontAwesomeIcon icon={faGear} color="#92A8CE" fontSize={20} />
+            </div>
+            <div className={classes.icon_wrapper}>
+              <FontAwesomeIcon icon={faBell} color="#FD657C" fontSize={20} />
+            </div>
           </div>
         )}
         <div className={classes.profile_snippet}>
