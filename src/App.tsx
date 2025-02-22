@@ -36,7 +36,7 @@ function App() {
           <div
             className="sidebar"
             style={{
-              width: !mobileView ? "225px" : "82px",
+              width: !mobileView ? "225px" : "75px",
               transition: "width 0.25s ease-in-out",
             }}
           >
@@ -47,18 +47,20 @@ function App() {
               <Header />
             </div>
             <div className="main_content">
-              <Routes>
-                <Route index path="/" element={<Dashboard />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/transactions" element={<Transactions />} />
-                <Route path="/accounts" element={<Accounts />} />
-                <Route path="/investments" element={<Investments />} />
-                <Route path="/cards" element={<Cards />} />
-                <Route path="/loans" element={<Loans />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="*" element={<Unfound />} />
-              </Routes>
+              <div className="wrapper">
+                <Routes>
+                  <Route index path="/" element={<Dashboard />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/transactions" element={<Transactions />} />
+                  <Route path="/accounts" element={<Accounts />} />
+                  <Route path="/investments" element={<Investments />} />
+                  <Route path="/cards" element={<Cards />} />
+                  <Route path="/loans" element={<Loans />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="*" element={<Unfound />} />
+                </Routes>
+              </div>
             </div>
           </div>
         </div>
