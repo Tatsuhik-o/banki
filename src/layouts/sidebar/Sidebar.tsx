@@ -40,16 +40,23 @@ const useStyles = makeStyles({
     height: "50px",
     display: "flex",
     gap: "25px",
+    "&:hover": {
+      backgroundColor: "#F5F7FA",
+    },
+  },
+  active_nav_element: {
+    backgroundColor: "#F5F7FA",
+  },
+  inactive_nav_element: {},
+  font: {
+    fontSize: "1.3rem",
+    minWidth: "25px",
   },
   main_element: {
     display: "flex",
     gap: "12px",
     flex: 1,
     alignItems: "center",
-  },
-  font: {
-    fontSize: "1.3rem",
-    minWidth: "25px",
   },
   active: {
     width: "4px",
@@ -82,6 +89,9 @@ const useStyles = makeStyles({
     width: "100%",
     height: "50px",
     display: "flex",
+    "&:hover": {
+      backgroundColor: "#F5F7FA",
+    },
   },
   main_element_mobile: {
     flex: 1,
@@ -108,7 +118,13 @@ export default function Sidebar() {
         {nav_bar.map((navElement, idx) => {
           return !mobileView ? (
             <NavLink to={navElement.name} key={idx}>
-              <div className={classes.nav_element}>
+              <div
+                className={`${classes.nav_element} ${
+                  currentPath === navElement.name
+                    ? classes.active_nav_element
+                    : classes.inactive_nav_element
+                }`}
+              >
                 <div
                   className={
                     currentPath === navElement.name
@@ -140,7 +156,13 @@ export default function Sidebar() {
             </NavLink>
           ) : (
             <NavLink to={navElement.name} key={idx}>
-              <div className={classes.nav_element_mobile}>
+              <div
+                className={`${classes.nav_element_mobile} ${
+                  currentPath === navElement.name
+                    ? classes.active_nav_element
+                    : classes.inactive_nav_element
+                }`}
+              >
                 <div
                   className={
                     currentPath === navElement.name
