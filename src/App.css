@@ -58,6 +58,8 @@ body {
   background-color: #f5f7fa;
   display: flex;
   justify-content: center;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 .wrapper {
   width: 100%;

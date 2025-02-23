@@ -44,8 +44,8 @@ const useStyles = makeStyles({
     gap: "25px",
   },
   icon_wrapper: {
-    width: "45px",
-    height: "45px",
+    width: "40px",
+    height: "40px",
     backgroundColor: "#F5F7FA",
     borderRadius: "50%",
     overflow: "hidden",
@@ -139,10 +139,10 @@ export default function Header() {
               <input type="text" placeholder="Search for something ..." />
             </div>
             <div className={classes.icon_wrapper}>
-              <FontAwesomeIcon icon={faGear} color="#92A8CE" fontSize={20} />
+              <FontAwesomeIcon icon={faGear} color="#92A8CE" fontSize={17} />
             </div>
             <div className={classes.icon_wrapper}>
-              <FontAwesomeIcon icon={faBell} color="#FD657C" fontSize={20} />
+              <FontAwesomeIcon icon={faBell} color="#FD657C" fontSize={17} />
             </div>
           </div>
         )}
