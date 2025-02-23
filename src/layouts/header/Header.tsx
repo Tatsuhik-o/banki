@@ -94,7 +94,7 @@ const useStyles = makeStyles({
 export default function Header() {
   const { mobileView } = useContext(mobileContext) || {};
   const currentPath = useLocation().pathname.substring(1) || "Dashboard";
-  const [profileImage, setProfileImage] = useState<string>("");
+  const [profileImage, setProfileImage] = useState<string | null>(null);
   const classes = useStyles();
 
   useEffect(() => {
