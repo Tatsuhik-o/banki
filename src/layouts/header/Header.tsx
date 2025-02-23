@@ -120,8 +120,8 @@ export default function Header() {
       return data;
     };
 
-    Promise.any([fast, fetchNewImage()]).then((res: string) => {
-      setProfileImage(res);
+    Promise.any([fast, fetchNewImage()]).then((res) => {
+      setProfileImage(res as string);
     });
   }, []);
 
