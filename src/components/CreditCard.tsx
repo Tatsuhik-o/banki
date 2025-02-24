@@ -1,28 +1,150 @@
 import { makeStyles } from "@mui/styles";
-import { useEffect, useState } from "react";
+import { CreditCardType } from "../utils/types";
+import { hideCreditCard } from "../utils/constants";
+import { mobileContext } from "../utils/context";
+import { useContext } from "react";
+
+type TCreditCardProps = {
+  cardDetails: CreditCardType;
+};
 
 const useStyles = makeStyles({
-  credit_card: {
-    width: "100%",
-    border: "1px solid black",
+  credit_details: {
     flex: "1",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+    borderRadius: "25px",
+    gap: "0px",
+    fontFamily: "Source Code Pro",
+    color: (props: { cardType: string; mobileView: boolean }) =>
+      props.cardType === "primary" ? "#fff" : "#343C6A",
+  },
+  upper_card: {
+    padding: "0rem 1.5rem",
+    height: "75%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    background: (props: { cardType: string; mobileView: boolean }) =>
+      props.cardType === "primary"
+        ? "linear-gradient(#3835EF, #3532F1)"
+        : "#ffffff",
+  },
+  upper_layer: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  balance: {
+    "& label": {
+      fontSize: "0.7rem",
+      fontFamily: "IBM Plex Sans",
+      fontWeight: "400",
+    },
+    "& p": {
+      fontSize: "1.1rem",
+    },
+  },
+  sim_tray: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  bottom_layer: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  card_holder: {
+    "& label": {
+      fontSize: "0.7rem",
+      fontFamily: "IBM Plex Sans",
+      fontWeight: "400",
+    },
+    "& p": {
+      fontSize: "1.1rem",
+    },
+  },
+  expiry_date: {
+    "& label": {
+      fontSize: "0.7rem",
+      fontFamily: "IBM Plex Sans",
+      fontWeight: "400",
+    },
+    "& p": {
+      fontSize: "1.1rem",
+    },
+  },
+  bottom_card: {
+    padding: "0rem 1.5rem",
+    height: "25%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    background: (props: { cardType: string; mobileView: boolean }) =>
+      props.cardType === "primary"
+        ? "linear-gradient(#4A47F4, #2724F1)"
+        : "#ffffff",
+    borderTop: (props: { cardType: string }) =>
+      props.cardType === "primary" ? "none" : "1px solid #F7FAFC",
+  },
+
+  card_number: {
+    fontSize: (props) => (!props.mobileView ? "1.05rem" : "0.9rem"),
+  },
+  card_provider: {
+    height: "30%",
+    overflow: "hidden",
+    "& img": {
+      width: "100%",
+      height: "100%",
+    },
   },
 });
 
-export default function CreditCard() {
-  const [primaryCards, setPrimaryCards] = useState<number>(
-    window.innerWidth < 600 ? 1 : 2
+export default function CreditCard({ cardDetails }: TCreditCardProps) {
+  const { mobileView } = useContext(mobileContext) || {};
+  const cardType = cardDetails.type;
+  const classes = useStyles({ cardType, mobileView: mobileView ?? false });
+  return (
+    <div className={classes.credit_details}>
+      <div className={classes.upper_card}>
+        <div className={classes.upper_layer}>
+          <div className={classes.balance}>
+            <label htmlFor="">Balance</label>
+            <p>{cardDetails.balance}$</p>
+          </div>
+          <div className={classes.sim_tray}>
+            <img
+              src={
+                cardType === "primary"
+                  ? "sim_tray_primary.png"
+                  : "sim_tray_secondary.png"
+              }
+              alt=""
+            />
+          </div>
+        </div>
+        <div className={classes.bottom_layer}>
+          <div className={classes.card_holder}>
+            <label htmlFor="">Card Holder</label>
+            <p>{cardDetails.card_holder}</p>
+          </div>
+          <div className={classes.expiry_date}>
+            <label htmlFor="">Valid Thru</label>
+            <p>{cardDetails.expiry_date}</p>
+          </div>
+        </div>
+      </div>
+      <div className={classes.bottom_card}>
+        <div className={classes.card_number}>
+          {hideCreditCard(cardDetails.card_number)}
+        </div>
+        <div className={classes.card_provider}>
+          <img src={`${cardDetails.provider}.png`} alt="" />
+        </div>
+      </div>
+    </div>
   );
-
-  useEffect(() => {
-    const checkResize = () => {
-      setPrimaryCards(window.innerWidth < 600 ? 1 : 2);
-    };
-    window.addEventListener("resize", checkResize);
-    return () => {
-      window.removeEventListener("resize", checkResize);
-    };
-  }, []);
-  const classes = useStyles();
-  return <div className={classes.credit_card}>CreditCard</div>;
 }
