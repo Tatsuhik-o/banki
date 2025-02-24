@@ -42,3 +42,16 @@ export const nav_bar = [
     name: "Settings",
   },
 ];
+
+export const my_credit_cards = [
+  {
+    balance: "",
+    card_holder: "",
+    expiry_date: "",
+    card_number: "",
+  },
+  {},
+  {},
+  {},
+  {},
+];
