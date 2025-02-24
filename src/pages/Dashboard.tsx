@@ -24,14 +24,15 @@ const useStyles = makeStyles({
     },
   },
   card_tran: {
+    width: "100%",
     flex: "1",
     display: "flex",
+    padding: "0rem 0.5rem",
     flexDirection: (props: { mobileView: boolean; dashboardHeight: number }) =>
       !props.mobileView ? "row" : "column",
   },
   card_wrapper: {
     flex: "2",
-    border: "1px solid black",
     minHeight: (props: { mobileView: boolean; dashboardHeight: number }) =>
       props.mobileView ? `${props.dashboardHeight / 3 - 25}px` : "",
   },
@@ -42,7 +43,10 @@ const useStyles = makeStyles({
       props.mobileView ? `${props.dashboardHeight / 3 - 25}px` : "",
   },
   acti_expen: {
+    width: "100%",
     flex: "1",
+    display: "flex",
+    padding: "0rem 0.5rem",
     flexDirection: (props: { mobileView: boolean; dashboardHeight: number }) =>
       !props.mobileView ? "row" : "column",
   },
@@ -59,7 +63,10 @@ const useStyles = makeStyles({
       props.mobileView ? `${props.dashboardHeight / 3 - 25}px` : "",
   },
   quick_hist: {
+    width: "100%",
     flex: "1",
+    display: "flex",
+    padding: "0rem 0.5rem",
     flexDirection: (props: { mobileView: boolean; dashboardHeight: number }) =>
       !props.mobileView ? "row" : "column",
   },
