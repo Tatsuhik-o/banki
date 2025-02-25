@@ -19,6 +19,8 @@ const useStyles = makeStyles({
     fontFamily: "Source Code Pro",
     color: (props: { cardType: string; mobileView: boolean }) =>
       props.cardType === "primary" ? "#fff" : "#343C6A",
+    border: (props: { cardType: string; mobileView: boolean }) =>
+      props.cardType === "primary" ? "none" : "1px solid #DFEAF2",
   },
   upper_card: {
     padding: "0rem 1.5rem",
@@ -38,12 +40,12 @@ const useStyles = makeStyles({
   },
   balance: {
     "& label": {
-      fontSize: "0.7rem",
+      fontSize: "0.8rem",
       fontFamily: "IBM Plex Sans",
       fontWeight: "400",
     },
     "& p": {
-      fontSize: "1.1rem",
+      fontSize: "1.3rem",
     },
   },
   sim_tray: {
@@ -58,12 +60,12 @@ const useStyles = makeStyles({
   },
   card_holder: {
     "& label": {
-      fontSize: "0.7rem",
+      fontSize: "0.8rem",
       fontFamily: "IBM Plex Sans",
       fontWeight: "400",
     },
     "& p": {
-      fontSize: "1.1rem",
+      fontSize: "1.3rem",
     },
   },
   expiry_date: {

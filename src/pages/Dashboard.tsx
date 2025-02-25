@@ -38,7 +38,6 @@ const useStyles = makeStyles({
   },
   tran_wrapper: {
     flex: "1",
-    border: "1px solid black",
     minHeight: (props: { mobileView: boolean; dashboardHeight: number }) =>
       props.mobileView ? `${props.dashboardHeight / 3 - 25}px` : "",
   },

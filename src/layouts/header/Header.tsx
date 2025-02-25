@@ -139,10 +139,10 @@ export default function Header() {
               <input type="text" placeholder="Search for something ..." />
             </div>
             <div className={classes.icon_wrapper}>
-              <FontAwesomeIcon icon={faGear} color="#92A8CE" fontSize={17} />
+              <FontAwesomeIcon icon={faGear} color="#92A8CE" fontSize={19} />
             </div>
             <div className={classes.icon_wrapper}>
-              <FontAwesomeIcon icon={faBell} color="#FD657C" fontSize={17} />
+              <FontAwesomeIcon icon={faBell} color="#FD657C" fontSize={19} />
             </div>
           </div>
         )}
