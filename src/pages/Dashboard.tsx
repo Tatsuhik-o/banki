@@ -11,7 +11,6 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles({
   dashboard: {
     width: "100%",
-    height: "100%",
     display: "flex",
     flexDirection: "column",
     gap: (props: { mobileView: boolean; dashboardHeight: number }) =>
@@ -25,62 +24,50 @@ const useStyles = makeStyles({
   },
   card_tran: {
     width: "100%",
-    flex: "1",
+    overflow: "hidden",
     display: "flex",
     padding: "0rem 0.5rem",
     flexDirection: (props: { mobileView: boolean; dashboardHeight: number }) =>
       !props.mobileView ? "row" : "column",
   },
-  card_wrapper: {
-    flex: "2",
-    minHeight: (props: { mobileView: boolean; dashboardHeight: number }) =>
-      props.mobileView ? `${props.dashboardHeight / 3 - 25}px` : "",
-  },
-  tran_wrapper: {
-    flex: "1",
-    minHeight: (props: { mobileView: boolean; dashboardHeight: number }) =>
-      props.mobileView ? `${props.dashboardHeight / 3 - 25}px` : "",
-  },
+  card_wrapper: (props: { mobileView: boolean; dashboardHeight: number }) => ({
+    height: "250px",
+    width: props.mobileView ? "100%" : "calc(66%)",
+  }),
+  tran_wrapper: (props: { mobileView: boolean; dashboardHeight: number }) => ({
+    height: "250px",
+    width: props.mobileView ? "100%" : "calc(33%)",
+  }),
   acti_expen: {
     width: "100%",
-    flex: "1",
     display: "flex",
     padding: "0rem 0.5rem",
     flexDirection: (props: { mobileView: boolean; dashboardHeight: number }) =>
       !props.mobileView ? "row" : "column",
   },
-  acti_wrapper: {
-    flex: "2",
-    border: "1px solid black",
-    minHeight: (props: { mobileView: boolean; dashboardHeight: number }) =>
-      props.mobileView ? `${props.dashboardHeight / 3 - 25}px` : "",
-  },
-  expen_wrapper: {
-    flex: "1",
-    border: "1px solid black",
-    minHeight: (props: { mobileView: boolean; dashboardHeight: number }) =>
-      props.mobileView ? `${props.dashboardHeight / 3 - 25}px` : "",
-  },
+  acti_wrapper: (props: { mobileView: boolean; dashboardHeight: number }) => ({
+    height: "325px",
+    width: props.mobileView ? "100%" : "calc(66%)",
+  }),
+  expen_wrapper: (props: { mobileView: boolean; dashboardHeight: number }) => ({
+    height: "325px",
+    width: props.mobileView ? "100%" : "calc(33%)",
+  }),
   quick_hist: {
     width: "100%",
-    flex: "1",
     display: "flex",
     padding: "0rem 0.5rem",
     flexDirection: (props: { mobileView: boolean; dashboardHeight: number }) =>
       !props.mobileView ? "row" : "column",
   },
-  quick_wrapper: {
-    flex: "1",
-    border: "1px solid black",
-    minHeight: (props: { mobileView: boolean; dashboardHeight: number }) =>
-      props.mobileView ? `${props.dashboardHeight / 3 - 25}px` : "",
-  },
-  hist_wrapper: {
-    flex: "2",
-    border: "1px solid black",
-    minHeight: (props: { mobileView: boolean; dashboardHeight: number }) =>
-      props.mobileView ? `${props.dashboardHeight / 3 - 25}px` : "",
-  },
+  quick_wrapper: (props: { mobileView: boolean; dashboardHeight: number }) => ({
+    height: "250px",
+    width: props.mobileView ? "100%" : "calc(33%)",
+  }),
+  hist_wrapper: (props: { mobileView: boolean; dashboardHeight: number }) => ({
+    height: "250px",
+    width: props.mobileView ? "100%" : "calc(66%)",
+  }),
 });
 
 export default function Dashboard() {

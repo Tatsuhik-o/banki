@@ -19,6 +19,7 @@ export type TSideBar = {
   mobileView: boolean;
   setMobileView: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
 export type TTitle = {
   titleMessage: string;
 };
@@ -33,3 +34,13 @@ export const CreditCardScheme = z.object({
 });
 
 export type CreditCardType = z.infer<typeof CreditCardScheme>;
+
+export const transactionScheme = z.object({
+  provider: z.enum(["paypal", "gpay", "card"]),
+  colorTheme: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/),
+  date: z.date(),
+  amount: z.string(),
+  iconColor: z.string(),
+});
+
+export type TransactionType = z.infer<typeof transactionScheme>;

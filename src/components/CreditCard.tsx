@@ -23,7 +23,7 @@ const useStyles = makeStyles({
       props.cardType === "primary" ? "none" : "1px solid #DFEAF2",
   },
   upper_card: {
-    padding: "0rem 1.5rem",
+    padding: "0rem 1rem",
     height: "75%",
     display: "flex",
     flexDirection: "column",
@@ -40,12 +40,12 @@ const useStyles = makeStyles({
   },
   balance: {
     "& label": {
-      fontSize: "0.8rem",
+      fontSize: "0.7rem",
       fontFamily: "IBM Plex Sans",
       fontWeight: "400",
     },
     "& p": {
-      fontSize: "1.3rem",
+      fontSize: "1.2rem",
     },
   },
   sim_tray: {
@@ -60,12 +60,12 @@ const useStyles = makeStyles({
   },
   card_holder: {
     "& label": {
-      fontSize: "0.8rem",
+      fontSize: "0.7rem",
       fontFamily: "IBM Plex Sans",
       fontWeight: "400",
     },
     "& p": {
-      fontSize: "1.3rem",
+      fontSize: "1.2rem",
     },
   },
   expiry_date: {
@@ -75,11 +75,11 @@ const useStyles = makeStyles({
       fontWeight: "400",
     },
     "& p": {
-      fontSize: "1.1rem",
+      fontSize: "1rem",
     },
   },
   bottom_card: {
-    padding: "0rem 1.5rem",
+    padding: "0rem 1rem",
     height: "25%",
     display: "flex",
     alignItems: "center",
@@ -93,7 +93,7 @@ const useStyles = makeStyles({
   },
 
   card_number: {
-    fontSize: (props) => (!props.mobileView ? "1.05rem" : "0.9rem"),
+    fontSize: (props) => (!props.mobileView ? "0.9rem" : "0.8rem"),
   },
   card_provider: {
     height: "30%",

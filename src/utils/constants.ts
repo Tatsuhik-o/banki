@@ -8,7 +8,11 @@ import {
   faScrewdriverWrench,
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
+import { faMoneyBills } from "@fortawesome/free-solid-svg-icons";
+import { faPaypal, faGooglePay } from "@fortawesome/free-brands-svg-icons";
 import { CreditCardType } from "./types";
+import { TransactionType } from "./types";
+import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 export const nav_bar = [
   {
@@ -106,3 +110,42 @@ export function hideCreditCard(credit_card: string): string {
     })
     .join("");
 }
+
+export const recent_transactions: (TransactionType & {
+  icon: IconDefinition;
+})[] = [
+  {
+    provider: "card",
+    colorTheme: "#FFF5D9",
+    date: new Date("28 January 2025"),
+    amount: "-$" + formatBalance(850),
+    icon: faMoneyBills,
+    iconColor: "#FFBB38",
+  },
+  {
+    provider: "paypal",
+    colorTheme: "#E7EDFF",
+    date: new Date("17 July 2024"),
+    amount: "+$" + formatBalance(2500),
+    icon: faPaypal,
+    iconColor: "#396AFF",
+  },
+  {
+    provider: "gpay",
+    colorTheme: "#DCFAF8",
+    date: new Date("12 February 2024"),
+    amount: "+$" + formatBalance(5400),
+    icon: faGooglePay,
+    iconColor: "#16DBCC",
+  },
+];
+
+export const fullDayNames = {
+  Sat: "Saturday",
+  Sun: "Sunday",
+  Mon: "Monday",
+  Tue: "Tuesday",
+  Wed: "Wednesday",
+  Thu: "Thursday",
+  Fri: "Friday",
+};

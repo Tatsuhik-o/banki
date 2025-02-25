@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 const useStyles = makeStyles({
   my_cards: {
     height: "100%",
+    width: "100%",
     padding: "0.5rem",
     display: "flex",
     flexDirection: "column",
@@ -18,6 +19,7 @@ const useStyles = makeStyles({
     display: "flex",
     gap: "10px",
     justifyContent: "space-between",
+    overflow: "hidden",
   },
 });
 export default function MyCards() {
