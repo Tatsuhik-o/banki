@@ -12,7 +12,7 @@ import {
 import { Bar } from "react-chartjs-2";
 import { fullDayNames } from "../../utils/constants";
 import { ChartOptions, TooltipItem } from "chart.js";
-
+import ChartDataLabels from "chartjs-plugin-datalabels";
 const useStyles = makeStyles({
   weekly_activity: {
     height: "100%",
@@ -36,7 +36,8 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ChartDataLabels
 );
 
 const labels = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
@@ -85,6 +86,9 @@ interface ChartOptionsWithCustomCallbacks extends ChartOptions<"bar"> {
       display: boolean;
     };
     tooltip: TooltipOptionsWithCustomCallbacks;
+    datalabels: {
+      display: boolean;
+    };
   };
 }
 
@@ -98,6 +102,9 @@ const options: ChartOptionsWithCustomCallbacks = {
         usePointStyle: true,
         pointStyle: "circle",
       },
+    },
+    datalabels: {
+      display: false,
     },
     title: {
       display: false,

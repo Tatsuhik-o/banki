@@ -13,6 +13,7 @@ import { faPaypal, faGooglePay } from "@fortawesome/free-brands-svg-icons";
 import { CreditCardType } from "./types";
 import { TransactionType } from "./types";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { FriendType } from "./types";
 
 export const nav_bar = [
   {
@@ -149,3 +150,21 @@ export const fullDayNames = {
   Thu: "Thursday",
   Fri: "Friday",
 };
+
+export const friends: FriendType[] = [
+  {
+    name: "Guillermo",
+    profile: "https://avatar.iran.liara.run/public",
+    tag: "Manager",
+  },
+  {
+    name: "Imane",
+    profile: "https://avatar.iran.liara.run/public",
+    tag: "CEO",
+  },
+  {
+    name: "Kamal",
+    profile: "https://avatar.iran.liara.run/public",
+    tag: "Employee",
+  },
+];

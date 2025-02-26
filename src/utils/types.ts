@@ -44,3 +44,9 @@ export const transactionScheme = z.object({
 });
 
 export type TransactionType = z.infer<typeof transactionScheme>;
+
+export type FriendType = {
+  name: string;
+  profile: string;
+  tag: string;
+};

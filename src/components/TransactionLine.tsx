@@ -78,7 +78,7 @@ export default function TransactionLine({ transactionInfo }: TTransactionLine) {
       </div>
       <div className={classes.transaction_details}>
         <p className={classes.transaction_type}>{`${
-          transactionInfo.amount[0] === "+" ? "Widthraw " : "Deposit "
+          transactionInfo.amount[0] === "+" ? "Deposit From" : "Widthraw To"
         } ${transactionInfo.provider}`}</p>
         <p className={classes.transaction_date}>
           {transactionInfo.date.toLocaleDateString("en-GB", {

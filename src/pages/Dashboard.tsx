@@ -61,11 +61,11 @@ const useStyles = makeStyles({
       !props.mobileView ? "row" : "column",
   },
   quick_wrapper: (props: { mobileView: boolean; dashboardHeight: number }) => ({
-    height: "250px",
+    height: "300px",
     width: props.mobileView ? "100%" : "calc(33%)",
   }),
   hist_wrapper: (props: { mobileView: boolean; dashboardHeight: number }) => ({
-    height: "250px",
+    height: "300px",
     width: props.mobileView ? "100%" : "calc(66%)",
   }),
 });
