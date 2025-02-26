@@ -96,7 +96,7 @@ const useStyles = makeStyles({
     fontSize: (props) => (!props.mobileView ? "0.9rem" : "0.8rem"),
   },
   card_provider: {
-    height: "30%",
+    height: "45%",
     overflow: "hidden",
     "& img": {
       width: "100%",

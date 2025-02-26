@@ -39,6 +39,7 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    border: "1px solid black",
   },
 });
 
@@ -65,7 +66,7 @@ export default function QuickTransfer() {
             })}
         </div>
         <div className={classes.transfer_transaction}>
-          <label htmlFor=""></label>
+          <label htmlFor="">Write Amount</label>
           <input type="text" />
           <button>
             Send <FontAwesomeIcon icon={faPaperPlane} />

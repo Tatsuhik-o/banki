@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 import { FriendType } from "../utils/types";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 const useStyles = makeStyles({
   friend: {
     width: "30%",
@@ -43,10 +43,38 @@ type TFriend = {
 
 export default function Friend({ friend, active, setActive }: TFriend) {
   const classes = useStyles();
+  const [profilePic, setProfilePic] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const timePromise = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("placeholder_image.png");
+      }, 500);
+    });
+    const fetchPromise = async (URL: string): Promise<string> => {
+      try {
+        const response = await fetch(URL);
+        const data = await response.text();
+        if (data) {
+          return URL;
+        }
+      } catch (err) {
+        return "placeholder_image.png";
+      }
+    };
+
+    Promise.any([
+      fetchPromise("https://avatar.iran.liara.run/public"),
+      timePromise,
+    ]).then((res) => {
+      setProfilePic(res as string);
+    });
+  }, []);
+
   return (
     <div className={classes.friend}>
       <div className={classes.friend_pic} onClick={setActive}>
-        <img src="https://avatar.iran.liara.run/public" alt={friend.name} />
+        <img src={profilePic} alt={friend.name} />
       </div>
       <div
         className={classes.friend_name}
