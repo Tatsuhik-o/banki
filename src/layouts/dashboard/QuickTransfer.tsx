@@ -24,6 +24,8 @@ const useStyles = makeStyles({
     borderRadius: "25px",
     display: "flex",
     flexDirection: "column",
+    paddingBottom: (props: { mobileView: boolean }) =>
+      props.mobileView ? "1rem" : "0rem",
   },
   friends: {
     height: "65%",
@@ -37,16 +39,57 @@ const useStyles = makeStyles({
     height: "35%",
     width: "100%",
     display: "flex",
+    flexDirection: (props: { mobileView: boolean }) =>
+      props.mobileView ? "column" : "row",
+    gap: "20px",
     justifyContent: "center",
     alignItems: "center",
-    border: "1px solid black",
+    "& label": {
+      color: "#718EBF",
+      fontFamily: "Segoe UI",
+    },
+  },
+  transfer_amount: {
+    display: "flex",
+    alignItems: "center",
+    position: "relative",
+    height: "100%",
+    "& input": {
+      height: "50%",
+      minHeight: "40px",
+      borderRadius: "50px",
+      backgroundColor: "#EDF1F7",
+      border: "none",
+      color: "#90A6CD",
+      paddingLeft: "1rem",
+    },
+    "& button": {
+      position: "absolute",
+      top: "50%",
+      left: "100%",
+      transform: "translate3d(-50%, -50%, 0)",
+      backgroundColor: "#1814F3",
+      color: "#FFFFFF",
+      border: "none",
+      borderRadius: "50px",
+      height: "50%",
+      minHeight: "40px",
+      padding: "0.5rem 1rem",
+      display: "flex",
+      gap: "10px",
+      justifyContent: "center",
+      alignItems: "center",
+      cursor: "pointer",
+    },
   },
 });
 
 export default function QuickTransfer() {
-  const classes = useStyles();
   const { mobileView } = useContext(mobileContext) || {};
-  const [activeFriend, setActiveFriend] = useState<number>(0);
+  const [activeFriend, setActiveFriend] = useState<number>(
+    Math.floor(Math.random() * 3)
+  );
+  const classes = useStyles({ mobileView: mobileView || false });
   return (
     <div className={classes.quick_transfer}>
       <TitleCard titleMessage="Quick Transfer" />
@@ -67,10 +110,12 @@ export default function QuickTransfer() {
         </div>
         <div className={classes.transfer_transaction}>
           <label htmlFor="">Write Amount</label>
-          <input type="text" />
-          <button>
-            Send <FontAwesomeIcon icon={faPaperPlane} />
-          </button>
+          <div className={classes.transfer_amount}>
+            <input type="text" placeholder="525.50" />
+            <button>
+              Send <FontAwesomeIcon icon={faPaperPlane} />
+            </button>
+          </div>
         </div>
       </div>
     </div>

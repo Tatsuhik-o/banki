@@ -23,15 +23,16 @@ const useStyles = makeStyles({
     },
   },
   friend_name: {
-    fontFamily: "poppins",
+    fontFamily: "Segoe UI",
     overflow: "hidden",
     whiteSpace: "nowrap",
     fontStyle: "italic",
   },
   friend_tag: {
-    fontFamily: "poppins",
+    fontFamily: "Segoe UI",
     overflow: "hidden",
     whiteSpace: "nowrap",
+    color: "#7A95C3",
   },
 });
 
@@ -51,7 +52,7 @@ export default function Friend({ friend, active, setActive }: TFriend) {
         resolve("placeholder_image.png");
       }, 500);
     });
-    const fetchPromise = async (URL: string): Promise<string> => {
+    const fetchPromise = async (URL: string) => {
       try {
         const response = await fetch(URL);
         const data = await response.text();
@@ -64,7 +65,9 @@ export default function Friend({ friend, active, setActive }: TFriend) {
     };
 
     Promise.any([
-      fetchPromise("https://avatar.iran.liara.run/public"),
+      fetchPromise(
+        `https://avatar.iran.liara.run/public/${Math.floor(Math.random() * 45)}`
+      ),
       timePromise,
     ]).then((res) => {
       setProfilePic(res as string);
