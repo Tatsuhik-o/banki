@@ -4,7 +4,7 @@ import { MouseEventHandler, useEffect, useState } from "react";
 const useStyles = makeStyles({
   friend: {
     width: "30%",
-    aspectRatio: "1",
+    height: "100%",
     overflow: "hidden",
     display: "flex",
     flexDirection: "column",
@@ -16,7 +16,8 @@ const useStyles = makeStyles({
     aspectRatio: "1",
     overflow: "hidden",
     cursor: "pointer",
-    borderRadius: "50px",
+    borderRadius: "50%",
+
     "& img": {
       width: "100%",
       height: "100%",

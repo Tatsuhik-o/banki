@@ -5,7 +5,7 @@ import { friends } from "../../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 import { mobileContext } from "../../utils/context";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 const useStyles = makeStyles({
   quick_transfer: {
@@ -24,8 +24,8 @@ const useStyles = makeStyles({
     borderRadius: "25px",
     display: "flex",
     flexDirection: "column",
-    paddingBottom: (props: { mobileView: boolean }) =>
-      props.mobileView ? "1rem" : "0rem",
+    padding: (props: { mobileView: boolean; ipadView: boolean }) =>
+      props.mobileView ? "1rem" : "0.5rem",
   },
   friends: {
     height: "65%",
@@ -34,13 +34,14 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    gap: "10px",
   },
   transfer_transaction: {
     height: "35%",
     width: "100%",
     display: "flex",
-    flexDirection: (props: { mobileView: boolean }) =>
-      props.mobileView ? "column" : "row",
+    flexDirection: (props: { mobileView: boolean; ipadView: boolean }) =>
+      props.ipadView ? "column" : "row",
     gap: "20px",
     justifyContent: "center",
     alignItems: "center",
@@ -62,6 +63,8 @@ const useStyles = makeStyles({
       border: "none",
       color: "#90A6CD",
       paddingLeft: "1rem",
+      transform: (props: { mobileView: boolean; ipadView: boolean }) =>
+        props.mobileView ? "translateX(-15%)" : "",
     },
     "& button": {
       position: "absolute",
@@ -86,10 +89,25 @@ const useStyles = makeStyles({
 
 export default function QuickTransfer() {
   const { mobileView } = useContext(mobileContext) || {};
+  const [ipadView, setIpadView] = useState<boolean>(window.innerWidth < 1400);
   const [activeFriend, setActiveFriend] = useState<number>(
     Math.floor(Math.random() * 3)
   );
-  const classes = useStyles({ mobileView: mobileView || false });
+
+  useEffect(() => {
+    const setIpadViewAfterResize = () => {
+      setIpadView(window.innerWidth < 1400);
+    };
+    window.addEventListener("resize", setIpadViewAfterResize);
+    return () => {
+      window.removeEventListener("resize", setIpadViewAfterResize);
+    };
+  }, []);
+
+  const classes = useStyles({
+    mobileView: mobileView || false,
+    ipadView: ipadView || false,
+  });
   return (
     <div className={classes.quick_transfer}>
       <TitleCard titleMessage="Quick Transfer" />

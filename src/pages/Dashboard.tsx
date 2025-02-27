@@ -26,7 +26,8 @@ const useStyles = makeStyles({
     width: "100%",
     overflow: "hidden",
     display: "flex",
-    padding: "0rem 0.5rem",
+    padding: (props: { mobileView: boolean }) =>
+      props.mobileView ? "0rem" : "0rem 0.5rem",
     flexDirection: (props: { mobileView: boolean; dashboardHeight: number }) =>
       !props.mobileView ? "row" : "column",
   },
@@ -41,7 +42,8 @@ const useStyles = makeStyles({
   acti_expen: {
     width: "100%",
     display: "flex",
-    padding: "0rem 0.5rem",
+    padding: (props: { mobileView: boolean }) =>
+      props.mobileView ? "0rem" : "0rem 0.5rem",
     flexDirection: (props: { mobileView: boolean; dashboardHeight: number }) =>
       !props.mobileView ? "row" : "column",
   },
@@ -56,7 +58,8 @@ const useStyles = makeStyles({
   quick_hist: {
     width: "100%",
     display: "flex",
-    padding: "0rem 0.5rem",
+    padding: (props: { mobileView: boolean }) =>
+      props.mobileView ? "0rem" : "0rem 0.5rem",
     flexDirection: (props: { mobileView: boolean; dashboardHeight: number }) =>
       !props.mobileView ? "row" : "column",
   },
