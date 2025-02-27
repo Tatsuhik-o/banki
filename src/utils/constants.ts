@@ -168,3 +168,8 @@ export const friends: FriendType[] = [
     tag: "Employee",
   },
 ];
+
+export const balances: number[] = [110, 230, 460, 780, 210, 570, 220, 600];
+export const expenses: number[] = [30, 15, 20, 35];
+export const deposits: number[] = [490, 350, 320, 490, 170, 380, 390];
+export const withdraws: number[] = [230, 140, 260, 370, 240, 240, 320];

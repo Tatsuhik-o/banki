@@ -13,6 +13,7 @@ import { Bar } from "react-chartjs-2";
 import { fullDayNames } from "../../utils/constants";
 import { ChartOptions, TooltipItem } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { deposits, withdraws } from "../../utils/constants";
 const useStyles = makeStyles({
   weekly_activity: {
     height: "100%",
@@ -47,13 +48,13 @@ const data = {
   datasets: [
     {
       label: "Deposit",
-      data: [490, 350, 320, 490, 170, 380, 390],
+      data: deposits,
       backgroundColor: "#1814F3",
       borderRadius: 25,
     },
     {
       label: "Withdraw",
-      data: [230, 140, 260, 370, 240, 240, 320],
+      data: withdraws,
       backgroundColor: "#16DBCC",
       borderRadius: 25,
     },

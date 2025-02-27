@@ -83,7 +83,7 @@ const useStyles = makeStyles({
     color: "#1814F3",
   },
   inactive_element: {
-    color: "#B1B1B1",
+    color: "#6B7280",
   },
   nav_element_mobile: {
     width: "100%",

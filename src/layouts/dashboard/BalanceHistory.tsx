@@ -15,6 +15,7 @@ import TitleCard from "../../components/TitleCard";
 import { makeStyles } from "@mui/styles";
 import { mobileContext } from "../../utils/context";
 import { useContext } from "react";
+import { balances } from "../../utils/constants";
 
 ChartJS.register(
   LineController,
@@ -34,11 +35,12 @@ const data = {
   datasets: [
     {
       label: "Balance",
-      data: [110, 230, 460, 780, 210, 570, 220, 600],
+      data: balances,
       borderColor: "#1814F3",
       fill: true,
       tension: 0.4,
-      backgroundColor: "rgba(24, 20, 243, 0.1)",
+      backgroundColor: "rgba(24, 20, 243, 0.2)",
+      pointRadius: 0,
     },
   ],
 };
@@ -46,6 +48,10 @@ const data = {
 const options = {
   responsive: true,
   maintainAspectRatio: false,
+  interaction: {
+    mode: "index" as const,
+    axis: "x" as "x",
+  },
   plugins: {
     legend: {
       display: false,
@@ -62,6 +68,7 @@ const options = {
       bodyColor: "rgba(0, 0, 0, 0.8)",
       borderColor: "rgba(0, 0, 0, 0.5)",
       borderWidth: 1,
+      intersect: false,
     },
   },
   scales: {

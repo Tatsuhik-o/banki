@@ -94,6 +94,9 @@ const useStyles = makeStyles({
 
   card_number: {
     fontSize: (props) => (!props.mobileView ? "0.9rem" : "0.8rem"),
+    fontWeight: "600",
+    fontFamily: "Source Code Pro",
+    letterSpacing: "1.2px",
   },
   card_provider: {
     height: "45%",

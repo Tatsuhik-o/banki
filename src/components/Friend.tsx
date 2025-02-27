@@ -8,6 +8,7 @@ const useStyles = makeStyles({
     overflow: "hidden",
     display: "flex",
     flexDirection: "column",
+    justifyContent: "center",
     gap: "8px",
     alignItems: "center",
   },

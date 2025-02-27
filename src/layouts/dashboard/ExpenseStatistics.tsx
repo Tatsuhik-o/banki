@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { expenses } from "../../utils/constants";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
@@ -27,7 +28,7 @@ const data = {
   labels: ["Entertainment", "Bill", "Investment", "Others"],
   datasets: [
     {
-      data: [30, 15, 20, 35],
+      data: expenses,
       backgroundColor: ["#2C3456", "#FF7F00", "#FF00FF", "#0000FF"],
       borderColor: "#ffffff",
       borderWidth: 2,
