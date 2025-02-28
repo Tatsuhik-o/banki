@@ -271,7 +271,7 @@ function getRandomDate(): string {
 
 export const full_transactions = Array.from(
   {
-    length: Math.floor(Math.random() * 20) + 10,
+    length: Math.floor(Math.random() * 20) + 60,
   },
   (_) => {
     return {

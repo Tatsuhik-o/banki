@@ -88,8 +88,6 @@ const useStyles = makeStyles({
     gap: "5px",
     justifyContent: "space-around",
     padding: "1rem",
-    backgroundColor: "#FFFFFF",
-    borderRadius: "25px",
     overflow: "hidden",
     "& > *:not(:last-child)": {
       borderBottom: "1px solid #F4F6F8",
@@ -146,6 +144,12 @@ const useStyles = makeStyles({
     color: "#E2E2FD",
     backgroundColor: "#1814F3",
   },
+  transactions_wrapper: {
+    width: "100%",
+    backgroundColor: "#FFFFFF",
+    borderRadius: "25px",
+    padding: "1rem",
+  },
 });
 
 export default function Transactions() {
@@ -156,9 +160,7 @@ export default function Transactions() {
     full_transactions as FullTransaction[]
   );
   const [activeTab, setActiveTab] = useState<number>(0);
-  const pageNums = Math.ceil(allTransactions.length / 5);
-
-  console.log(full_transactions);
+  const pageNums = Math.ceil(allTransactions.length / 10);
 
   const onlyExpenses = useCallback(() => {
     setActiveTab(2);
@@ -211,7 +213,8 @@ export default function Transactions() {
         {mobileView &&
           allTransactions
             .filter(
-              (_, idx) => idx <= (currentPage + 1) * 5 && idx > currentPage * 5
+              (_, idx) =>
+                idx <= (currentPage + 1) * 10 && idx > currentPage * 10
             )
             .map((elem, idx) => {
               return (
@@ -229,9 +232,8 @@ export default function Transactions() {
                 </div>
               );
             })}
-
         {!mobileView && (
-          <>
+          <div className={classes.transactions_wrapper}>
             <div className={classes.table_head}>
               <div>Description</div>
               <div>Transaction ID</div>
@@ -243,7 +245,7 @@ export default function Transactions() {
             {allTransactions
               .filter(
                 (_, idx) =>
-                  idx <= (currentPage + 1) * 5 && idx > currentPage * 5
+                  idx <= (currentPage + 1) * 10 && idx > currentPage * 10
               )
               .map((elem, idx) => {
                 return (
@@ -264,7 +266,7 @@ export default function Transactions() {
                   </div>
                 );
               })}
-          </>
+          </div>
         )}
       </div>
       <div className={classes.pages_control}>
