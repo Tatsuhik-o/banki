@@ -1,16 +1,22 @@
 import { makeStyles } from "@mui/styles";
 import { mobileContext } from "../utils/context";
-import { useContext } from "react";
+import { useCallback, useContext, useState } from "react";
 import MyCards from "../layouts/dashboard/MyCards";
 import BarExpense from "../layouts/transactions/BarExpense";
 import TitleCard from "../components/TitleCard";
+import { FullTransaction } from "../utils/types";
+import { full_transactions } from "../utils/constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import TransactionLine from "../components/TransactionLine";
+import { formatBalance } from "../utils/constants";
 
 const useStyles = makeStyles({
   transactions: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    gap: (props: { mobileView: boolean }) =>
+    gap: (props: { mobileView: boolean; activeTab: number }) =>
       !props.mobileView ? "10px" : "15px",
     "& > *": {
       width: "100%",
@@ -23,16 +29,16 @@ const useStyles = makeStyles({
     width: "100%",
     overflow: "hidden",
     display: "flex",
-    padding: (props: { mobileView: boolean }) =>
+    padding: (props: { mobileView: boolean; activeTab: number }) =>
       props.mobileView ? "0rem" : "0rem 0.5rem",
-    flexDirection: (props: { mobileView: boolean }) =>
+    flexDirection: (props: { mobileView: boolean; activeTab: number }) =>
       !props.mobileView ? "row" : "column",
   },
-  card_wrapper: (props: { mobileView: boolean }) => ({
+  card_wrapper: (props: { mobileView: boolean; activeTab: number }) => ({
     height: "250px",
     width: props.mobileView ? "100%" : "calc(66%)",
   }),
-  tran_wrapper: (props: { mobileView: boolean }) => ({
+  tran_wrapper: (props: { mobileView: boolean; activeTab: number }) => ({
     height: "250px",
     width: props.mobileView ? "100%" : "calc(33%)",
   }),
@@ -40,16 +46,119 @@ const useStyles = makeStyles({
     width: "100%",
     overflow: "hidden",
     display: "flex",
-    padding: (props: { mobileView: boolean }) =>
+    padding: (props: { mobileView: boolean; activeTab: number }) =>
       props.mobileView ? "0.5rem" : "0rem 1rem",
     flexDirection: "column",
+  },
+  filter_system: {
+    width: "100%",
+    borderBottom: "1px solid #ECEFF2",
+    display: "flex",
+    justifyContent: "space-around",
+    fontFamily: "Calibri",
+    " & > *": {
+      color: "#829BC6",
+      padding: "0.5rem 0rem",
+      cursor: "pointer",
+    },
+  },
+  no_filter: {
+    borderBottom: (props: { mobileView: boolean; activeTab: number }) =>
+      props.activeTab === 0 ? "1px solid blue" : "none",
+  },
+  incomes_filter: {
+    borderBottom: (props: { mobileView: boolean; activeTab: number }) =>
+      props.activeTab === 1 ? "1px solid blue" : "none",
+  },
+  expenses_filter: {
+    borderBottom: (props: { mobileView: boolean; activeTab: number }) =>
+      props.activeTab === 2 ? "1px solid blue" : "none",
+  },
+  table_wrapper: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: "5px",
+    justifyContent: "space-around",
+    padding: "1rem",
+    backgroundColor: "#FFFFFF",
+    borderRadius: "25px",
+    overflow: "hidden",
+  },
+  pages_control: {
+    display: "flex",
+    justifyContent: (props: { mobileView: boolean }) =>
+      props.mobileView ? "center" : "flex-end",
+    gap: "10px",
+    fontFamily: "Source Code Pro",
+    marginLeft: "auto",
+    "& button": {
+      border: "none",
+      color: "#2522F4",
+      backgroundColor: "transparent",
+      textTransform: "capitalize",
+      fontFamily: "Source Code Pro",
+      display: "flex",
+      gap: "2px",
+      justifyContent: "center",
+      alignItems: "center",
+      cursor: "pointer",
+    },
+  },
+  list_pages: {
+    display: "flex",
+    fontFamily: "Source Code Pro",
+  },
+  one_page: {
+    width: "30px",
+    height: "30px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: "5px",
+    fontSize: "0.8rem",
+    color: "#2522F4",
+  },
+  active_page: {
+    color: "#E2E2FD",
+    backgroundColor: "#1814F3",
   },
 });
 
 export default function Transactions() {
   const { mobileView } = useContext(mobileContext) || {};
+  const [currentPage, setCurrentPage] = useState<number>(0);
 
-  const classes = useStyles({ mobileView: mobileView || false });
+  const [allTransactions, setAllTransactions] = useState(
+    full_transactions as FullTransaction[]
+  );
+  const [activeTab, setActiveTab] = useState<number>(0);
+  const pageNums = Math.ceil(allTransactions.length / 5);
+
+  const onlyExpenses = useCallback(() => {
+    setActiveTab(2);
+    setAllTransactions(
+      full_transactions.filter((elem) => elem.amount < 0) as FullTransaction[]
+    );
+  }, [allTransactions]);
+
+  const onlyIncomes = useCallback(() => {
+    setActiveTab(1);
+    setAllTransactions(
+      full_transactions.filter((elem) => elem.amount > 0) as FullTransaction[]
+    );
+  }, [allTransactions]);
+
+  const allOperations = useCallback(() => {
+    setActiveTab(0);
+    setAllTransactions(full_transactions as FullTransaction[]);
+  }, [allTransactions]);
+
+  const classes = useStyles({
+    mobileView: mobileView || false,
+    activeTab: activeTab || 0,
+  });
   return (
     <div className={classes.transactions}>
       <div className={classes.card_expen}>
@@ -61,7 +170,69 @@ export default function Transactions() {
         </div>
       </div>
       <div className={classes.all_transactions}>
-        <TitleCard titleMessage="This Month Transactions" />
+        <TitleCard titleMessage="Recent Transactions" />
+        <div className={classes.filter_system}>
+          <div className={classes.no_filter} onClick={allOperations}>
+            All Transactions
+          </div>
+          <div className={classes.incomes_filter} onClick={onlyIncomes}>
+            Incomes
+          </div>
+          <div className={classes.expenses_filter} onClick={onlyExpenses}>
+            Expenses
+          </div>
+        </div>
+      </div>
+      <div className={classes.table_wrapper}>
+        {mobileView &&
+          allTransactions
+            .filter(
+              (_, idx) => idx <= (currentPage + 1) * 5 && idx > currentPage * 5
+            )
+            .map((elem, idx) => {
+              return (
+                <div key={idx}>
+                  <TransactionLine
+                    transactionInfo={{
+                      amount:
+                        elem.amount > 0
+                          ? "+$" + formatBalance(elem.amount)
+                          : "-$" + formatBalance(Math.abs(elem.amount)),
+                      service: elem.description,
+                      date: new Date(elem.date),
+                    }}
+                  />
+                </div>
+              );
+            })}
+      </div>
+      <div className={classes.pages_control}>
+        <button onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}>
+          <FontAwesomeIcon icon={faArrowLeft} fontSize={12} /> previous
+        </button>
+        <div className={classes.list_pages}>
+          {Array.from({ length: pageNums }).map((_, idx) => {
+            return (
+              <div
+                className={`${classes.one_page} ${
+                  idx === currentPage && classes.active_page
+                }`}
+                onClick={() => setCurrentPage(idx)}
+                key={idx}
+              >
+                {idx + 1}
+              </div>
+            );
+          })}
+        </div>
+        <button
+          onClick={() =>
+            setCurrentPage(Math.min(pageNums - 1, currentPage + 1))
+          }
+        >
+          next
+          <FontAwesomeIcon icon={faArrowRight} fontSize={12} />
+        </button>
       </div>
     </div>
   );

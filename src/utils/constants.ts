@@ -208,3 +208,81 @@ export const maxIndex = (arr: number[]): number =>
 
 export const minIndex = (arr: number[]): number =>
   arr.indexOf(Math.min(...arr));
+
+const transactionDescriptions = [
+  "Amazon Purchase",
+  "Netflix Subscription Renewal",
+  "Spotify Premium Payment",
+  "Received Salary Payment",
+  "Freelance Work Payment",
+  "Loan Repayment to John",
+  "Money Received from Alice",
+  "PayPal Transfer to Friend",
+  "Credit Card Payment",
+  "Rent Payment to Landlord",
+  "Refund from Apple Store",
+  "Online Grocery Shopping",
+  "Gas Station Payment",
+  "Utility Bill - Electricity",
+  "Water Bill Payment",
+  "Mobile Phone Recharge",
+  "Hotel Reservation - Expedia",
+  "Flight Ticket Purchase",
+  "Car Rental Fee",
+  "Gym Membership Renewal",
+  "Medical Bill Payment",
+  "Hospital Fees Payment",
+  "Loan Disbursement Received",
+  "Stock Market Investment",
+  "Interest Earned on Savings",
+  "Insurance Premium Payment",
+  "Walmart In-Store Purchase",
+  "Best Buy Electronics Order",
+  "Gift Card Purchase",
+  "Cloud Storage Subscription",
+  "Gaming Console Purchase",
+  "Airbnb Booking",
+  "Restaurant Bill Payment",
+  "Coffee Shop Expense",
+  "Food Delivery - DoorDash",
+  "Ride-Hailing Payment - Uber",
+  "Bus Ticket Booking",
+  "Train Ticket Purchase",
+  "Concert Ticket Payment",
+  "Movie Ticket Booking",
+  "Charity Donation",
+  "Refund for Canceled Flight",
+  "Received Money from Family",
+  "Transfer to Savings Account",
+  "Mortgage Payment",
+  "Tuition Fee Payment",
+  "Home Appliance Purchase",
+];
+
+const signNumArray: number[] = [-1, 1];
+
+export const full_transactions = Array.from(
+  {
+    length: Math.floor(Math.random() * 20) + 10,
+  },
+  (_) => {
+    return {
+      description: transactionDescriptions[Math.floor(Math.random() * 50)],
+      id: `#${Array.from({ length: 8 }, (_) =>
+        Math.floor(Math.random() * 10)
+      ).join("")}`,
+      type: ["Shopping", "Transfer", "Service"][Math.floor(Math.random() * 3)],
+      card: `${Array.from({ length: 4 }, (_) =>
+        Math.floor(Math.random() * 5)
+      ).join("")} ****`,
+      date: new Date(
+        `${Math.floor(Math.random() * 12)}-${Math.floor(
+          Math.random() * 28
+        )}-202${Math.floor(Math.random() * 5)}`
+      ).toDateString(),
+      amount:
+        signNumArray[Math.round(Math.random())] *
+        Math.floor(Math.random() * 10000),
+    };
+  }
+);

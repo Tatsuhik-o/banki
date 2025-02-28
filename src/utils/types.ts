@@ -1,5 +1,5 @@
 import { z } from "zod";
-
+import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 const isValidLuhn = (cardNumber: string): boolean => {
   let sum = 0;
   let shouldDouble = false;
@@ -36,11 +36,24 @@ export const CreditCardScheme = z.object({
 export type CreditCardType = z.infer<typeof CreditCardScheme>;
 
 export const transactionScheme = z.object({
-  provider: z.enum(["paypal", "gpay", "card"]),
-  colorTheme: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/),
+  provider: z.enum(["paypal", "gpay", "card"]).optional(),
+  colorTheme: z
+    .string()
+    .regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/)
+    .optional(),
   date: z.date(),
   amount: z.string(),
-  iconColor: z.string(),
+  iconColor: z.string().optional(),
+  service: z.string().optional(),
+  icon: z
+    .custom<IconDefinition>(
+      (val) => {
+        if (typeof val !== "object" || val === null) return false;
+        return "prefix" in val && "iconName" in val && "icon" in val;
+      },
+      { message: "Invalid FontAwesome IconDefinition" }
+    )
+    .optional(),
 });
 
 export type TransactionType = z.infer<typeof transactionScheme>;
@@ -50,3 +63,14 @@ export type FriendType = {
   profile: string;
   tag: string;
 };
+
+export const FullTransactionSchema = z.object({
+  description: z.string(),
+  id: z.string().regex(/^#\d{8}$/),
+  type: z.enum(["Shopping", "Transfer", "Service"]),
+  card: z.string().regex(/^\d{4} \*{4}$/),
+  date: z.string(),
+  amount: z.number().min(1).max(5000),
+});
+
+export type FullTransaction = z.infer<typeof FullTransactionSchema>;
