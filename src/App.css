@@ -80,3 +80,8 @@ body {
   max-width: 1440px;
   height: 100%;
 }
+@media only screen and (max-width: 550px) {
+  .main {
+    max-width: 85%;
+  }
+}

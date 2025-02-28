@@ -14,7 +14,8 @@ const useStyles = makeStyles({
     width: "100%",
     height: "100%",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: (props: { mobileView: boolean }) =>
+      !props.mobileView ? "space-between" : "center",
     alignItems: "center",
     gap: "10px",
     padding: "0rem 2rem",
@@ -98,7 +99,7 @@ export default function Header() {
   const [profileImage, setProfileImage] = useState<string | undefined>(
     undefined
   );
-  const classes = useStyles();
+  const classes = useStyles({ mobileView: mobileView || false });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -128,8 +129,8 @@ export default function Header() {
   return (
     <div className={classes.header}>
       <div className={classes.left_side}>{currentPath}</div>
-      <div className={classes.right_side}>
-        {!mobileView && (
+      {!mobileView && (
+        <div className={classes.right_side}>
           <div className={classes.full_header_parts}>
             <div className={classes.input}>
               <FontAwesomeIcon
@@ -145,11 +146,11 @@ export default function Header() {
               <FontAwesomeIcon icon={faBell} color="#FD657C" fontSize={19} />
             </div>
           </div>
-        )}
-        <div className={classes.profile_snippet}>
-          <img src={profileImage} alt="" />
+          <div className={classes.profile_snippet}>
+            <img src={profileImage} alt="" />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

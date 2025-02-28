@@ -1,9 +1,11 @@
 import { TransactionType } from "../utils/types";
 import { makeStyles } from "@mui/styles";
+import { mobileContext } from "../utils/context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { faDotCircle } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
 type TTransactionLine = {
-  transactionInfo: TransactionType & { icon: IconDefinition };
+  transactionInfo: TransactionType;
 };
 
 const useStyles = makeStyles({
@@ -55,31 +57,41 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    color: (props: { iconColor: string; amount: string }) =>
-      props.amount[0] === "-" ? "#FF4B4A" : "#41D4A8",
+    color: (props: {
+      iconColor: string;
+      amount: string;
+      mobileView: boolean;
+    }) => (props.amount[0] === "-" ? "#FF4B4A" : "#41D4A8"),
     fontSize: "1rem",
     fontFamily: "Source Code Pro",
   },
 });
 
 export default function TransactionLine({ transactionInfo }: TTransactionLine) {
+  const { mobileView } = useContext(mobileContext) || {};
   const classes = useStyles({
-    iconColor: transactionInfo.colorTheme,
+    iconColor: transactionInfo.colorTheme || "transparent",
     amount: transactionInfo.amount,
+    mobileView: mobileView || false,
   });
   return (
     <div className={classes.transaction_line}>
-      <div className={classes.transaction_icon}>
-        <FontAwesomeIcon
-          icon={transactionInfo.icon}
-          fontSize={22}
-          color={transactionInfo.iconColor}
-        />
-      </div>
+      {!mobileView && (
+        <div className={classes.transaction_icon}>
+          <FontAwesomeIcon
+            icon={transactionInfo.icon || faDotCircle}
+            fontSize={22}
+            color={transactionInfo.iconColor}
+          />
+        </div>
+      )}
       <div className={classes.transaction_details}>
-        <p className={classes.transaction_type}>{`${
-          transactionInfo.amount[0] === "+" ? "Deposit From" : "Widthraw To"
-        } ${transactionInfo.provider}`}</p>
+        <p className={classes.transaction_type}>
+          {transactionInfo.service ||
+            `${
+              transactionInfo.amount[0] === "+" ? "Deposit From" : "Widthraw To"
+            } ${transactionInfo.provider}`}
+        </p>
         <p className={classes.transaction_date}>
           {transactionInfo.date.toLocaleDateString("en-GB", {
             day: "numeric",
