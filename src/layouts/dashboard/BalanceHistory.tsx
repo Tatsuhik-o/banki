@@ -70,10 +70,17 @@ const options = {
       intersect: false,
       usePointStyle: true,
       pointStyle: "circle",
+      callbacks: {
+        label: function (tooltipItem: any) {
+          let value = tooltipItem.raw || 0; // Get the raw data value
+          return `Balance: $${value.toLocaleString()}`; // Format with $ and thousand separator
+        },
+      },
     },
   },
   scales: {
     y: {
+      max: 1000,
       ticks: {
         stepSize: 200,
       },

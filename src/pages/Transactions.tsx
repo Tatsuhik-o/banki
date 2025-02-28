@@ -9,6 +9,7 @@ import { full_transactions } from "../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import TransactionLine from "../components/TransactionLine";
+import FullTransactionLine from "../components/FullTransactionLine";
 import { formatBalance } from "../utils/constants";
 
 const useStyles = makeStyles({
@@ -57,7 +58,6 @@ const useStyles = makeStyles({
     justifyContent: "space-around",
     fontFamily: "Calibri",
     " & > *": {
-      color: "#829BC6",
       padding: "0.5rem 0rem",
       cursor: "pointer",
     },
@@ -65,14 +65,20 @@ const useStyles = makeStyles({
   no_filter: {
     borderBottom: (props: { mobileView: boolean; activeTab: number }) =>
       props.activeTab === 0 ? "1px solid blue" : "none",
+    color: (props: { mobileView: boolean; activeTab: number }) =>
+      props.activeTab === 0 ? "#3734F1" : "#829BC6",
   },
   incomes_filter: {
     borderBottom: (props: { mobileView: boolean; activeTab: number }) =>
       props.activeTab === 1 ? "1px solid blue" : "none",
+    color: (props: { mobileView: boolean; activeTab: number }) =>
+      props.activeTab === 1 ? "#3734F1" : "#829BC6",
   },
   expenses_filter: {
     borderBottom: (props: { mobileView: boolean; activeTab: number }) =>
       props.activeTab === 2 ? "1px solid blue" : "none",
+    color: (props: { mobileView: boolean; activeTab: number }) =>
+      props.activeTab === 2 ? "#3734F1" : "#829BC6",
   },
   table_wrapper: {
     width: "100%",
@@ -85,6 +91,9 @@ const useStyles = makeStyles({
     backgroundColor: "#FFFFFF",
     borderRadius: "25px",
     overflow: "hidden",
+    "& > *:not(:last-child)": {
+      borderBottom: "1px solid #F4F6F8",
+    },
   },
   pages_control: {
     display: "flex",
@@ -106,6 +115,18 @@ const useStyles = makeStyles({
       cursor: "pointer",
     },
   },
+  table_head: {
+    display: "flex",
+    padding: "0.8rem 0.4rem",
+    color: "#313131",
+    fontFamily: "Source Code Pro",
+    fontSize: "0.8rem",
+    "& > *": {
+      flex: "1",
+      color: "#718EBF",
+      fontWeight: "500",
+    },
+  },
   list_pages: {
     display: "flex",
     fontFamily: "Source Code Pro",
@@ -119,6 +140,7 @@ const useStyles = makeStyles({
     borderRadius: "5px",
     fontSize: "0.8rem",
     color: "#2522F4",
+    cursor: "pointer",
   },
   active_page: {
     color: "#E2E2FD",
@@ -135,6 +157,8 @@ export default function Transactions() {
   );
   const [activeTab, setActiveTab] = useState<number>(0);
   const pageNums = Math.ceil(allTransactions.length / 5);
+
+  console.log(full_transactions);
 
   const onlyExpenses = useCallback(() => {
     setActiveTab(2);
@@ -205,6 +229,43 @@ export default function Transactions() {
                 </div>
               );
             })}
+
+        {!mobileView && (
+          <>
+            <div className={classes.table_head}>
+              <div>Description</div>
+              <div>Transaction ID</div>
+              <div>Type</div>
+              <div>Card</div>
+              <div>Date</div>
+              <div>Amount</div>
+            </div>
+            {allTransactions
+              .filter(
+                (_, idx) =>
+                  idx <= (currentPage + 1) * 5 && idx > currentPage * 5
+              )
+              .map((elem, idx) => {
+                return (
+                  <div key={idx}>
+                    <FullTransactionLine
+                      transactionInfo={{
+                        amount:
+                          elem.amount > 0
+                            ? "+$" + formatBalance(elem.amount)
+                            : "-$" + formatBalance(Math.abs(elem.amount)),
+                        service: elem.description,
+                        date: new Date(elem.date),
+                        id: elem.id,
+                        type: elem.type,
+                        card: elem.card,
+                      }}
+                    />
+                  </div>
+                );
+              })}
+          </>
+        )}
       </div>
       <div className={classes.pages_control}>
         <button onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}>

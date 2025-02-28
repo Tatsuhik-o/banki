@@ -18,8 +18,6 @@ const useStyles = makeStyles({
     padding: "0rem 1rem",
     gap: "10px",
     overflow: "hidden",
-    borderBottom: (props: { mobileView: boolean }) =>
-      props.mobileView ? "1px solid #E9F2F6" : "none",
   },
   transaction_icon: (props: { iconColor: string; amount: string }) => ({
     height: "90%",

@@ -43,8 +43,17 @@ export const transactionScheme = z.object({
     .optional(),
   date: z.date(),
   amount: z.string(),
+  id: z
+    .string()
+    .regex(/^#\d{8}$/)
+    .optional(),
   iconColor: z.string().optional(),
   service: z.string().optional(),
+  type: z.enum(["Shopping", "Transfer", "Service"]).optional(),
+  card: z
+    .string()
+    .regex(/^\d{4} \*{4}$/)
+    .optional(),
   icon: z
     .custom<IconDefinition>(
       (val) => {
