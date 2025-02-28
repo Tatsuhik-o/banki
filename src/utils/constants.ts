@@ -202,3 +202,9 @@ export const generateDays = (num: number): string[] => {
     return days[(today + idx) % days.length];
   });
 };
+
+export const maxIndex = (arr: number[]): number =>
+  arr.indexOf(Math.max(...arr));
+
+export const minIndex = (arr: number[]): number =>
+  arr.indexOf(Math.min(...arr));

@@ -3,6 +3,7 @@ import { mobileContext } from "../utils/context";
 import { useContext } from "react";
 import MyCards from "../layouts/dashboard/MyCards";
 import BarExpense from "../layouts/transactions/BarExpense";
+import TitleCard from "../components/TitleCard";
 
 const useStyles = makeStyles({
   transactions: {
@@ -35,6 +36,14 @@ const useStyles = makeStyles({
     height: "250px",
     width: props.mobileView ? "100%" : "calc(33%)",
   }),
+  all_transactions: {
+    width: "100%",
+    overflow: "hidden",
+    display: "flex",
+    padding: (props: { mobileView: boolean }) =>
+      props.mobileView ? "0.5rem" : "0rem 1rem",
+    flexDirection: "column",
+  },
 });
 
 export default function Transactions() {
@@ -50,6 +59,9 @@ export default function Transactions() {
         <div className={classes.tran_wrapper}>
           <BarExpense />
         </div>
+      </div>
+      <div className={classes.all_transactions}>
+        <TitleCard titleMessage="This Month Transactions" />
       </div>
     </div>
   );

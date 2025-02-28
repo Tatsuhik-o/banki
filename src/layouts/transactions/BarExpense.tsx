@@ -6,6 +6,8 @@ import { useContext } from "react";
 import { generateMonths } from "../../utils/constants";
 import { monthly_expenses } from "../../utils/constants";
 import { formatBalance } from "../../utils/constants";
+import { maxIndex } from "../../utils/constants";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -53,8 +55,7 @@ const data = {
       borderRadius: 8,
       backgroundColor: (ctx: any) => {
         const index = ctx.dataIndex;
-        const totalBars = ctx.chart.data.labels.length;
-        return index === totalBars - 1 ? "#16DBCC" : "#EDF0F7"; // Last bar red, others blue
+        return index === maxIndex(monthly_expenses) ? "#16DBCC" : "#EDF0F7";
       },
     },
   ],
@@ -83,8 +84,8 @@ const options = {
       borderWidth: 1,
       callbacks: {
         label: function (context: any) {
-          let value = context.raw; // Get the actual data value
-          return `$${formatBalance(value)}`; // Add "$" sign in front
+          let value = context.raw;
+          return `$${formatBalance(value)}`;
         },
       },
     },
