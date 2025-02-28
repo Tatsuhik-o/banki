@@ -14,6 +14,7 @@ import { fullDayNames } from "../../utils/constants";
 import { ChartOptions, TooltipItem } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { deposits, withdraws } from "../../utils/constants";
+import { generateDays } from "../../utils/constants";
 const useStyles = makeStyles({
   weekly_activity: {
     height: "100%",
@@ -41,10 +42,8 @@ ChartJS.register(
   ChartDataLabels
 );
 
-const labels = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
-
 const data = {
-  labels,
+  labels: generateDays(7),
   datasets: [
     {
       label: "Deposit",

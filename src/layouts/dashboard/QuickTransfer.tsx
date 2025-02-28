@@ -70,7 +70,7 @@ const useStyles = makeStyles({
       position: "absolute",
       top: "50%",
       left: "100%",
-      transform: "translate3d(-50%, -50%, 0)",
+      transform: "translate3d(-100%, -50%, 0)",
       backgroundColor: "#1814F3",
       color: "#FFFFFF",
       border: "none",

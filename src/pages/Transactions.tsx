@@ -2,6 +2,7 @@ import { makeStyles } from "@mui/styles";
 import { mobileContext } from "../utils/context";
 import { useContext } from "react";
 import MyCards from "../layouts/dashboard/MyCards";
+import BarExpense from "../layouts/transactions/BarExpense";
 
 const useStyles = makeStyles({
   transactions: {
@@ -46,7 +47,9 @@ export default function Transactions() {
         <div className={classes.card_wrapper}>
           <MyCards />
         </div>
-        <div className={classes.tran_wrapper}></div>
+        <div className={classes.tran_wrapper}>
+          <BarExpense />
+        </div>
       </div>
     </div>
   );

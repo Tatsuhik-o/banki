@@ -171,5 +171,34 @@ export const friends: FriendType[] = [
 
 export const balances: number[] = [110, 230, 460, 780, 210, 570, 220, 600];
 export const expenses: number[] = [30, 15, 20, 35];
+export const monthly_expenses: number[] = Array.from({ length: 6 }, () =>
+  Math.floor(Math.random() * 10000 + 5000)
+);
 export const deposits: number[] = [490, 350, 320, 490, 170, 380, 390];
 export const withdraws: number[] = [230, 140, 260, 370, 240, 240, 320];
+export const generateMonths = (num: number): string[] => {
+  const months: string[] = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const currentMonth: number = new Date().getMonth();
+  return Array.from({ length: num - 1 }, (_, idx) => {
+    return months[(currentMonth + idx) % months.length];
+  });
+};
+export const generateDays = (num: number): string[] => {
+  const days: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const today = new Date().getDay();
+  return Array.from({ length: num }, (_, idx) => {
+    return days[(today + idx) % days.length];
+  });
+};

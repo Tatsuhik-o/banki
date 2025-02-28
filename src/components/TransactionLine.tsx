@@ -1,7 +1,9 @@
 import { TransactionType } from "../utils/types";
 import { makeStyles } from "@mui/styles";
+import { mobileContext } from "../utils/context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
 type TTransactionLine = {
   transactionInfo: TransactionType & { icon: IconDefinition };
 };
@@ -63,19 +65,22 @@ const useStyles = makeStyles({
 });
 
 export default function TransactionLine({ transactionInfo }: TTransactionLine) {
+  const { mobileView } = useContext(mobileContext) || {};
   const classes = useStyles({
     iconColor: transactionInfo.colorTheme,
     amount: transactionInfo.amount,
   });
   return (
     <div className={classes.transaction_line}>
-      <div className={classes.transaction_icon}>
-        <FontAwesomeIcon
-          icon={transactionInfo.icon}
-          fontSize={22}
-          color={transactionInfo.iconColor}
-        />
-      </div>
+      {!mobileView && (
+        <div className={classes.transaction_icon}>
+          <FontAwesomeIcon
+            icon={transactionInfo.icon}
+            fontSize={22}
+            color={transactionInfo.iconColor}
+          />
+        </div>
+      )}
       <div className={classes.transaction_details}>
         <p className={classes.transaction_type}>{`${
           transactionInfo.amount[0] === "+" ? "Deposit From" : "Widthraw To"

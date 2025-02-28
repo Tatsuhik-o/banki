@@ -16,6 +16,7 @@ import { makeStyles } from "@mui/styles";
 import { mobileContext } from "../../utils/context";
 import { useContext } from "react";
 import { balances } from "../../utils/constants";
+import { generateMonths } from "../../utils/constants";
 
 ChartJS.register(
   LineController,
@@ -28,10 +29,8 @@ ChartJS.register(
   Filler
 );
 
-const labels = ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb"];
-
 const data = {
-  labels,
+  labels: generateMonths(7),
   datasets: [
     {
       label: "Balance",
@@ -69,6 +68,8 @@ const options = {
       borderColor: "rgba(0, 0, 0, 0.5)",
       borderWidth: 1,
       intersect: false,
+      usePointStyle: true,
+      pointStyle: "circle",
     },
   },
   scales: {
