@@ -2,6 +2,9 @@ import { makeStyles } from "@mui/styles";
 import { mobileContext } from "../utils/context";
 import { useContext } from "react";
 import MainCard from "../layouts/accounts/main_card/MainCard";
+import TitleCard from "../components/TitleCard";
+import CreditCard from "../components/CreditCard";
+import { my_credit_cards } from "../utils/constants";
 
 const useStyles = makeStyles({
   accounts: {
@@ -30,6 +33,31 @@ const useStyles = makeStyles({
     flexDirection: (props: { mobileView: boolean }) =>
       !props.mobileView ? "row" : "column",
   },
+  upcom_bills: {
+    height: "100%",
+    width: "100%",
+    padding: "0.5rem",
+    display: "flex",
+    flex: "2",
+    flexDirection: "column",
+    gap: "10px",
+  },
+  main_card: {
+    height: "100%",
+    width: "100%",
+    padding: "0.5rem",
+    display: "flex",
+    flex: "1",
+    flexDirection: "column",
+    gap: "10px",
+  },
+  credit_card: {
+    width: "100%",
+    display: "flex",
+    gap: "10px",
+    justifyContent: "space-between",
+    overflow: "hidden",
+  },
 });
 
 export default function Accounts() {
@@ -38,7 +66,17 @@ export default function Accounts() {
   return (
     <div className={classes.accounts}>
       <MainCard />
-      <div className={classes.upcom_card}></div>
+      <div className={classes.upcom_card}>
+        <div className={classes.upcom_bills}>
+          <TitleCard titleMessage="Upcoming Bills" />
+        </div>
+        <div className={classes.main_card}>
+          <TitleCard titleMessage="Main Card" />
+          <div className={classes.credit_card}>
+            <CreditCard cardDetails={my_credit_cards[0]} />;
+          </div>
+        </div>
+      </div>
       <div className={classes.debcredove_invoi}></div>
     </div>
   );
