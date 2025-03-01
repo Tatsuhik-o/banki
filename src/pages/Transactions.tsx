@@ -87,7 +87,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     gap: "5px",
     justifyContent: "space-around",
-    padding: "1rem",
+    padding: "0rem 1rem",
     overflow: "hidden",
     "& > *:not(:last-child)": {
       borderBottom: "1px solid #F4F6F8",
@@ -95,11 +95,10 @@ const useStyles = makeStyles({
   },
   pages_control: {
     display: "flex",
+    padding: "0.5rem",
     justifyContent: (props: { mobileView: boolean }) =>
       props.mobileView ? "center" : "flex-end",
-    gap: "10px",
     fontFamily: "Source Code Pro",
-    marginLeft: "auto",
     "& button": {
       border: "none",
       color: "#2522F4",
@@ -123,6 +122,7 @@ const useStyles = makeStyles({
       flex: "1",
       color: "#718EBF",
       fontWeight: "500",
+      padding: "0rem 1rem",
     },
   },
   list_pages: {
@@ -149,6 +149,11 @@ const useStyles = makeStyles({
     backgroundColor: "#FFFFFF",
     borderRadius: "25px",
     padding: "1rem",
+  },
+  one_transaction_line: {
+    "&:not(:last-child)": {
+      borderBottom: "1px solid #F3F5F8",
+    },
   },
 });
 
@@ -218,7 +223,7 @@ export default function Transactions() {
             )
             .map((elem, idx) => {
               return (
-                <div key={idx}>
+                <div key={idx} className={classes.one_transaction_line}>
                   <TransactionLine
                     transactionInfo={{
                       amount:
@@ -249,7 +254,7 @@ export default function Transactions() {
               )
               .map((elem, idx) => {
                 return (
-                  <div key={idx}>
+                  <div key={idx} className={classes.one_transaction_line}>
                     <FullTransactionLine
                       transactionInfo={{
                         amount:

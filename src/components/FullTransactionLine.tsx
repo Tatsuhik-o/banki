@@ -12,6 +12,11 @@ const useStyles = makeStyles({
     fontSize: "0.8rem",
     "& > *": {
       flex: "1",
+      textOverflow: "ellipsis",
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      padding: "0rem 1rem",
+      textTransform: "capitalize",
     },
   },
 });

@@ -18,6 +18,11 @@ const useStyles = makeStyles({
     padding: "0rem 1rem",
     gap: "10px",
     overflow: "hidden",
+    "& > *": {
+      textOverflow: "ellipsis",
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+    },
   },
   transaction_icon: (props: { iconColor: string; amount: string }) => ({
     height: "90%",
