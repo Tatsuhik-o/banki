@@ -1,36 +1,21 @@
 import { makeStyles } from "@mui/styles";
 import { mobileContext } from "../utils/context";
 import { useContext } from "react";
-import Box from "../components/Box";
-import TitleCard from "../components/TitleCard";
+import MainCard from "../layouts/accounts/main_card/MainCard";
 
 const useStyles = makeStyles({
   accounts: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
+    padding: "3rem 1rem 1rem 1rem",
     gap: (props: { mobileView: boolean }) =>
       !props.mobileView ? "10px" : "15px",
-
-    "& > *": {
-      display: "flex",
-      flexDiretion: "column",
-    },
-  },
-  boxes: {
-    width: "100%",
-    overflow: "hidden",
-    display: "flex",
-    padding: (props: { mobileView: boolean }) =>
-      props.mobileView ? "0rem" : "0rem 0.5rem",
-    flexDirection: (props: { mobileView: boolean }) =>
-      !props.mobileView ? "row" : "column",
   },
   upcom_card: {
     width: "100%",
     overflow: "hidden",
     display: "flex",
-    border: "1px solid black",
     padding: (props: { mobileView: boolean }) =>
       props.mobileView ? "0rem" : "0rem 0.5rem",
     flexDirection: (props: { mobileView: boolean }) =>
@@ -40,7 +25,6 @@ const useStyles = makeStyles({
     width: "100%",
     overflow: "hidden",
     display: "flex",
-    border: "1px solid black",
     padding: (props: { mobileView: boolean }) =>
       props.mobileView ? "0rem" : "0rem 0.5rem",
     flexDirection: (props: { mobileView: boolean }) =>
@@ -53,12 +37,7 @@ export default function Accounts() {
   const classes = useStyles({ mobileView: mobileView || false });
   return (
     <div className={classes.accounts}>
-      <div className={classes.boxes}>
-        <TitleCard titleMessage="test" />
-        {Array.from({ length: 4 }).map((_, idx) => {
-          return <Box key={idx} />;
-        })}
-      </div>
+      <MainCard />
       <div className={classes.upcom_card}></div>
       <div className={classes.debcredove_invoi}></div>
     </div>

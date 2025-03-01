@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    fap: "25px",
+    gap: "25px",
     fontFamily: "Calibri",
     borderRight: "2px solid #F2F6FA",
   },

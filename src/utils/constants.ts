@@ -8,12 +8,18 @@ import {
   faScrewdriverWrench,
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
-import { faMoneyBills } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMoneyBills,
+  faSackDollar,
+  faHandHoldingDollar,
+  faFileInvoiceDollar,
+} from "@fortawesome/free-solid-svg-icons";
 import { faPaypal, faGooglePay } from "@fortawesome/free-brands-svg-icons";
 import { CreditCardType } from "./types";
 import { TransactionType } from "./types";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FriendType } from "./types";
+import { BoxInfo } from "./types";
 
 export const nav_bar = [
   {
@@ -346,3 +352,34 @@ export const full_transactions = Array.from(
     };
   }
 );
+
+export const box_info: BoxInfo[] = [
+  {
+    icon: faSackDollar,
+    primaryColor: "#FFBB38",
+    secondaryColor: "#FFF5D9",
+    title: "My Balance",
+    content: "$12,750",
+  },
+  {
+    icon: faHandHoldingDollar,
+    primaryColor: "#396AFF",
+    secondaryColor: "#E7EDFF",
+    title: "My Income",
+    content: "$5,600",
+  },
+  {
+    icon: faFileInvoiceDollar,
+    primaryColor: "#FF82AC",
+    secondaryColor: "#FFE0EB",
+    title: "My Expenses",
+    content: "$3,460",
+  },
+  {
+    icon: faPiggyBank,
+    primaryColor: "#16DBCC",
+    secondaryColor: "#DCFAF8",
+    title: "Total Saving",
+    content: "$7,920",
+  },
+];

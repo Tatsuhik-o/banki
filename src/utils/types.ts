@@ -83,3 +83,13 @@ export const FullTransactionSchema = z.object({
 });
 
 export type FullTransaction = z.infer<typeof FullTransactionSchema>;
+
+export const BoxInfoScheme = z.object({
+  icon: z.custom<IconDefinition>(),
+  primaryColor: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/),
+  secondaryColor: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/),
+  title: z.string(),
+  content: z.string(),
+});
+
+export type BoxInfo = z.infer<typeof BoxInfoScheme>;
