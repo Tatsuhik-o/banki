@@ -1,11 +1,11 @@
 import { makeStyles } from "@mui/styles";
 import { mobileContext } from "../utils/context";
-import { useContext } from "react";
+import { useContext, useRef, useEffect } from "react";
 import MainCard from "../layouts/accounts/main_card/MainCard";
 import TitleCard from "../components/TitleCard";
-import CreditCard from "../components/CreditCard";
 import Upcoming from "../layouts/accounts/upcoming_bills/Upcoming";
-import { my_credit_cards } from "../utils/constants";
+import JustGage from "justgage";
+import "raphael/raphael.min.js";
 
 const useStyles = makeStyles({
   accounts: {
@@ -52,18 +52,51 @@ const useStyles = makeStyles({
     flexDirection: "column",
     gap: "10px",
   },
-  credit_card: {
+  gauge_container: {
     width: "100%",
+    height: "100%",
     display: "flex",
     gap: "10px",
     justifyContent: "space-between",
     overflow: "hidden",
+  },
+  gauge: {
+    width: "100%",
+    height: "250px",
+    background: "#FFFFFF",
+    borderRadius: "18px",
+    "& svg > path:last-of-type": {
+      transform: "translate(-10px, 8px)",
+    },
   },
 });
 
 export default function Accounts() {
   const { mobileView } = useContext(mobileContext) || {};
   const classes = useStyles({ mobileView: mobileView || false });
+  const gaugeRef = useRef(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (gaugeRef.current) {
+        new JustGage({
+          id: "gauge-container",
+          value: 80,
+          min: 0,
+          max: 100,
+          title: "Credit Score",
+          label: "Score",
+          gaugeColor: "#E7EDFF",
+          levelColors: ["#396AFF", "#396AFF", "#396AFF"],
+          pointer: true,
+          pointerOptions: {
+            color: "#000000",
+          },
+        });
+      }
+    }, 100);
+  }, []);
+
   return (
     <div className={classes.accounts}>
       <MainCard />
@@ -73,9 +106,13 @@ export default function Accounts() {
           <Upcoming />
         </div>
         <div className={classes.main_card}>
-          <TitleCard titleMessage="Main Card" />
-          <div className={classes.credit_card}>
-            <CreditCard cardDetails={my_credit_cards[0]} />
+          <TitleCard titleMessage="Credit Score" />
+          <div className={classes.gauge_container}>
+            <div
+              ref={gaugeRef}
+              id="gauge-container"
+              className={classes.gauge}
+            ></div>
           </div>
         </div>
       </div>

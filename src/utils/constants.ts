@@ -361,6 +361,13 @@ export const box_info: BoxInfo[] = [
     content: "$12,750",
   },
   {
+    icon: faPiggyBank,
+    primaryColor: "#16DBCC",
+    secondaryColor: "#DCFAF8",
+    title: "Total Saving",
+    content: "$7,920",
+  },
+  {
     icon: faHandHoldingDollar,
     primaryColor: "#396AFF",
     secondaryColor: "#E7EDFF",
@@ -373,13 +380,6 @@ export const box_info: BoxInfo[] = [
     secondaryColor: "#FFE0EB",
     title: "My Expenses",
     content: "$3,460",
-  },
-  {
-    icon: faPiggyBank,
-    primaryColor: "#16DBCC",
-    secondaryColor: "#DCFAF8",
-    title: "Total Saving",
-    content: "$7,920",
   },
 ];
 

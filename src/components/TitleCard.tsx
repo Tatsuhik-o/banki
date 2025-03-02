@@ -7,6 +7,9 @@ const useStyles = makeStyles({
     fontSize: "1.4rem",
     fontWeight: "bold",
     height: "fit-content",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
   },
 });
 export default function TitleCard({ titleMessage }: TTitle) {

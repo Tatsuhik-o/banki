@@ -22,9 +22,14 @@ export default function MainCard() {
   const classes = useStyles({ mobileView: mobileView || false });
   return (
     <div className={classes.main_cards}>
-      {box_info.map((box, idx) => {
-        return <Box key={idx} boxInfo={box} />;
-      })}
+      {mobileView &&
+        box_info.slice(0, 2).map((box, idx) => {
+          return <Box key={idx} boxInfo={box} />;
+        })}
+      {!mobileView &&
+        box_info.map((box, idx) => {
+          return <Box key={idx} boxInfo={box} />;
+        })}
     </div>
   );
 }

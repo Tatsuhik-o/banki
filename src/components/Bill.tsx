@@ -10,9 +10,13 @@ type TBoxInfo = {
 
 const useStyles = makeStyles({
   bill: {
-    padding: "0.5rem",
+    padding: (props: { boxInfo: BoxInfo; mobileView: boolean }) =>
+      !props.mobileView ? "0.5rem" : "0rem",
   },
-  mobile_bill: {},
+  mobile_bill: {
+    display: "flex",
+    gap: "10px",
+  },
   desktop_bill: {
     display: "flex",
     gap: "20px",
@@ -23,8 +27,9 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    color: (props: BoxInfo) => props.primaryColor,
-    backgroundColor: (props: BoxInfo) => props.secondaryColor,
+    color: (props: { boxInfo: BoxInfo }) => props.boxInfo.primaryColor,
+    backgroundColor: (props: { boxInfo: BoxInfo }) =>
+      props.boxInfo.secondaryColor,
     borderRadius: "15px",
   },
   service: {
@@ -93,11 +98,32 @@ const useStyles = makeStyles({
 
 export default function Bill({ boxInfo }: TBoxInfo) {
   const { mobileView } = useContext(mobileContext) || {};
-  const classes = useStyles(boxInfo);
-  console.log(boxInfo);
+  const classes = useStyles({
+    boxInfo,
+    mobileView: mobileView || false,
+  });
   return (
     <div className={classes.bill}>
-      {mobileView && <div className={classes.mobile_bill}>mobile</div>}
+      {mobileView && (
+        <div className={classes.mobile_bill}>
+          <div className={classes.icon}>
+            <FontAwesomeIcon icon={boxInfo.icon} fontSize={20} />
+          </div>
+          <div className={classes.service}>
+            <h4>{boxInfo.title}</h4>
+            <p>{boxInfo.date?.toDateString()}</p>
+          </div>
+          <div className={classes.status}>{boxInfo.status}</div>
+          <div
+            className={classes.amount}
+            style={{
+              color: boxInfo.type === "Transfer" ? "#25DDAF" : "#FE667C",
+            }}
+          >
+            {`${boxInfo.type === "Transfer" ? "+" : "-"}${boxInfo.content}`}
+          </div>
+        </div>
+      )}
       {!mobileView && (
         <div className={classes.desktop_bill}>
           <div className={classes.icon}>
@@ -115,9 +141,9 @@ export default function Bill({ boxInfo }: TBoxInfo) {
             style={{
               color: boxInfo.type === "Transfer" ? "#25DDAF" : "#FE667C",
             }}
-          >{`${boxInfo.type === "Transfer" ? "+" : "-"}${
-            boxInfo.content
-          }`}</div>
+          >
+            {`${boxInfo.type === "Transfer" ? "+" : "-"}${boxInfo.content}`}
+          </div>
         </div>
       )}
     </div>
