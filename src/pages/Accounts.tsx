@@ -14,7 +14,8 @@ const useStyles = makeStyles({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    padding: "3rem 1rem 1rem 1rem",
+    padding: (props: { mobileView: boolean }) =>
+      props.mobileView ? "1rem 0rem" : "3rem 1rem 1rem 1rem",
     gap: (props: { mobileView: boolean }) =>
       !props.mobileView ? "10px" : "15px",
   },
