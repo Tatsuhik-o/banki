@@ -1,14 +1,21 @@
 import { makeStyles } from "@mui/styles";
 import { mobileContext } from "../utils/context";
-import { useContext } from "react";
+import { useContext, useRef, useEffect } from "react";
 import MainCard from "../layouts/accounts/main_card/MainCard";
+import TitleCard from "../components/TitleCard";
+import Upcoming from "../layouts/accounts/upcoming_bills/Upcoming";
+import DebCred from "../layouts/accounts/deb_cred_overview/DebCred";
+import Invoices from "../layouts/accounts/invoices/Invoices";
+import JustGage from "justgage";
+import "raphael/raphael.min.js";
 
 const useStyles = makeStyles({
   accounts: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    padding: "3rem 1rem 1rem 1rem",
+    padding: (props: { mobileView: boolean }) =>
+      props.mobileView ? "1rem 0rem" : "3rem 1rem 1rem 1rem",
     gap: (props: { mobileView: boolean }) =>
       !props.mobileView ? "10px" : "15px",
   },
@@ -30,16 +37,116 @@ const useStyles = makeStyles({
     flexDirection: (props: { mobileView: boolean }) =>
       !props.mobileView ? "row" : "column",
   },
+  upcom_bills: {
+    height: "100%",
+    width: "100%",
+    padding: "0.5rem",
+    display: "flex",
+    flex: "2",
+    flexDirection: "column",
+    gap: "10px",
+  },
+  main_card: {
+    height: "100%",
+    width: "100%",
+    padding: "0.5rem",
+    display: "flex",
+    flex: "1",
+    flexDirection: "column",
+    gap: "10px",
+  },
+  gauge_container: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    gap: "10px",
+    justifyContent: "space-between",
+    overflow: "hidden",
+  },
+  gauge: {
+    width: "100%",
+    height: "250px",
+    background: "#FFFFFF",
+    borderRadius: "18px",
+    "& svg > path:last-of-type": {
+      transform: "translate(-10px, 20px)",
+    },
+  },
+  debcred_overview: {
+    height: "100%",
+    width: "100%",
+    padding: "0.5rem",
+    display: "flex",
+    flex: "2",
+    flexDirection: "column",
+    gap: "10px",
+  },
+  invoices: {
+    height: "100%",
+    width: "100%",
+    padding: "0.5rem",
+    display: "flex",
+    flex: "1",
+    flexDirection: "column",
+    gap: "10px",
+  },
 });
 
 export default function Accounts() {
   const { mobileView } = useContext(mobileContext) || {};
   const classes = useStyles({ mobileView: mobileView || false });
+  const gaugeRef = useRef(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (gaugeRef.current) {
+        new JustGage({
+          id: "gauge-container",
+          value: 64,
+          min: 0,
+          max: 100,
+          title: "Credit Score",
+          label: "Score",
+          gaugeColor: "#E7EDFF",
+          levelColors: ["#396AFF", "#396AFF", "#396AFF"],
+          pointer: true,
+          pointerOptions: {
+            color: "#000000",
+          },
+        });
+      }
+    }, 100);
+  }, []);
+
   return (
     <div className={classes.accounts}>
       <MainCard />
-      <div className={classes.upcom_card}></div>
-      <div className={classes.debcredove_invoi}></div>
+      <div className={classes.upcom_card}>
+        <div className={classes.upcom_bills}>
+          <TitleCard titleMessage="Upcoming Bills" />
+          <Upcoming />
+        </div>
+        <div className={classes.main_card}>
+          <TitleCard titleMessage="Credit Score" />
+          <div className={classes.gauge_container}>
+            <div
+              ref={gaugeRef}
+              id="gauge-container"
+              className={classes.gauge}
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div className={classes.debcredove_invoi}>
+        <div className={classes.debcred_overview}>
+          <TitleCard titleMessage="Debit & Credit Overview" />
+          <DebCred />
+        </div>
+        <div className={classes.invoices}>
+          <TitleCard titleMessage="Invoices Sent" />
+          <Invoices />
+        </div>
+      </div>
     </div>
   );
 }

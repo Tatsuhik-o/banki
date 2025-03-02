@@ -7,14 +7,19 @@ import {
   faPiggyBank,
   faScrewdriverWrench,
   faGear,
-} from "@fortawesome/free-solid-svg-icons";
-import {
   faMoneyBills,
   faSackDollar,
   faHandHoldingDollar,
   faFileInvoiceDollar,
+  faHeadphonesSimple,
+  faFilm,
 } from "@fortawesome/free-solid-svg-icons";
-import { faPaypal, faGooglePay } from "@fortawesome/free-brands-svg-icons";
+import {
+  faPaypal,
+  faGooglePay,
+  faApplePay,
+  faPlaystation,
+} from "@fortawesome/free-brands-svg-icons";
 import { CreditCardType } from "./types";
 import { TransactionType } from "./types";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
@@ -362,6 +367,13 @@ export const box_info: BoxInfo[] = [
     content: "$12,750",
   },
   {
+    icon: faPiggyBank,
+    primaryColor: "#16DBCC",
+    secondaryColor: "#DCFAF8",
+    title: "Total Saving",
+    content: "$7,920",
+  },
+  {
     icon: faHandHoldingDollar,
     primaryColor: "#396AFF",
     secondaryColor: "#E7EDFF",
@@ -375,11 +387,75 @@ export const box_info: BoxInfo[] = [
     title: "My Expenses",
     content: "$3,460",
   },
+];
+
+export const upcoming_bills: BoxInfo[] = [
   {
-    icon: faPiggyBank,
-    primaryColor: "#16DBCC",
+    icon: faHeadphonesSimple,
+    primaryColor: "#2FDFD1",
     secondaryColor: "#DCFAF8",
-    title: "Total Saving",
-    content: "$7,920",
+    title: "Spotify Subscription",
+    content: "$150",
+    date: new Date("2024-01-25"),
+    type: "Shopping",
+    card: "4975 ****",
+    status: "pending",
+  },
+  {
+    icon: faScrewdriverWrench,
+    primaryColor: "#4372FF",
+    secondaryColor: "#E7EDFF",
+    title: "Mobile Service",
+    content: "$340",
+    date: new Date("2024-12-08"),
+    type: "Service",
+    card: "5172 ****",
+    status: "pending",
+  },
+  {
+    icon: faUser,
+    primaryColor: "#FF82AC",
+    secondaryColor: "#FFE0EB",
+    title: "Emily Wilson",
+    content: "$780",
+    date: new Date("2024-07-23"),
+    type: "Transfer",
+    card: "4975 ****",
+    status: "compeleted",
+  },
+];
+
+export const invoices: BoxInfo[] = [
+  {
+    icon: faApplePay,
+    primaryColor: "#23DDCF",
+    secondaryColor: "#DCFAF8",
+    title: "Apple Pay",
+    content: "$450",
+    date: new Date(new Date().getTime() - Math.random() * 100000000),
+  },
+  {
+    icon: faUser,
+    primaryColor: "#FFBB38",
+    secondaryColor: "#FFF5D9",
+    title: "Michael",
+    content: "$160",
+    date: new Date(new Date().getTime() - Math.random() * 100000000),
+  },
+  {
+    icon: faPlaystation,
+    primaryColor: "#396AFF",
+    secondaryColor: "#E7EDFF",
+    title: "Playstation",
+    content: "$1085",
+    date: new Date(new Date().getTime() - Math.random() * 100000000),
+  },
+  {
+    icon: faFilm,
+    primaryColor: "#FF82AC",
+    secondaryColor: "#FFE0EB",
+    title: "Netflix",
+    content: "$90",
+    date: new Date(new Date().getTime() - Math.random() * 100000000),
   },
 ];
