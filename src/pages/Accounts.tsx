@@ -4,6 +4,8 @@ import { useContext, useRef, useEffect } from "react";
 import MainCard from "../layouts/accounts/main_card/MainCard";
 import TitleCard from "../components/TitleCard";
 import Upcoming from "../layouts/accounts/upcoming_bills/Upcoming";
+import DebCred from "../layouts/accounts/deb_cred_overview/DebCred";
+import Invoices from "../layouts/accounts/invoices/Invoices";
 import JustGage from "justgage";
 import "raphael/raphael.min.js";
 
@@ -66,8 +68,26 @@ const useStyles = makeStyles({
     background: "#FFFFFF",
     borderRadius: "18px",
     "& svg > path:last-of-type": {
-      transform: "translate(-10px, 8px)",
+      transform: "translate(-10px, 20px)",
     },
+  },
+  debcred_overview: {
+    height: "100%",
+    width: "100%",
+    padding: "0.5rem",
+    display: "flex",
+    flex: "2",
+    flexDirection: "column",
+    gap: "10px",
+  },
+  invoices: {
+    height: "100%",
+    width: "100%",
+    padding: "0.5rem",
+    display: "flex",
+    flex: "1",
+    flexDirection: "column",
+    gap: "10px",
   },
 });
 
@@ -81,7 +101,7 @@ export default function Accounts() {
       if (gaugeRef.current) {
         new JustGage({
           id: "gauge-container",
-          value: 80,
+          value: 64,
           min: 0,
           max: 100,
           title: "Credit Score",
@@ -116,7 +136,16 @@ export default function Accounts() {
           </div>
         </div>
       </div>
-      <div className={classes.debcredove_invoi}></div>
+      <div className={classes.debcredove_invoi}>
+        <div className={classes.debcred_overview}>
+          <TitleCard titleMessage="Debit & Credit Overview" />
+          <DebCred />
+        </div>
+        <div className={classes.invoices}>
+          <TitleCard titleMessage="Invoices Sent" />
+          <Invoices />
+        </div>
+      </div>
     </div>
   );
 }

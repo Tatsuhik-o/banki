@@ -12,8 +12,14 @@ import {
   faHandHoldingDollar,
   faFileInvoiceDollar,
   faHeadphonesSimple,
+  faFilm,
 } from "@fortawesome/free-solid-svg-icons";
-import { faPaypal, faGooglePay } from "@fortawesome/free-brands-svg-icons";
+import {
+  faPaypal,
+  faGooglePay,
+  faApplePay,
+  faPlaystation,
+} from "@fortawesome/free-brands-svg-icons";
 import { CreditCardType } from "./types";
 import { TransactionType } from "./types";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
@@ -416,5 +422,40 @@ export const upcoming_bills: BoxInfo[] = [
     type: "Transfer",
     card: "4975 ****",
     status: "compeleted",
+  },
+];
+
+export const invoices: BoxInfo[] = [
+  {
+    icon: faApplePay,
+    primaryColor: "#23DDCF",
+    secondaryColor: "#DCFAF8",
+    title: "Apple Pay",
+    content: "$450",
+    date: new Date(new Date().getTime() - Math.random() * 100000000),
+  },
+  {
+    icon: faUser,
+    primaryColor: "#FFBB38",
+    secondaryColor: "#FFF5D9",
+    title: "Michael",
+    content: "$160",
+    date: new Date(new Date().getTime() - Math.random() * 100000000),
+  },
+  {
+    icon: faPlaystation,
+    primaryColor: "#396AFF",
+    secondaryColor: "#E7EDFF",
+    title: "Playstation",
+    content: "$1085",
+    date: new Date(new Date().getTime() - Math.random() * 100000000),
+  },
+  {
+    icon: faFilm,
+    primaryColor: "#FF82AC",
+    secondaryColor: "#FFE0EB",
+    title: "Netflix",
+    content: "$90",
+    date: new Date(new Date().getTime() - Math.random() * 100000000),
   },
 ];
