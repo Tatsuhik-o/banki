@@ -90,6 +90,13 @@ export const BoxInfoScheme = z.object({
   secondaryColor: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/),
   title: z.string(),
   content: z.string(),
+  date: z.date().optional(),
+  type: z.enum(["Shopping", "Service", "Transfer"]).optional(),
+  card: z
+    .string()
+    .regex(/[A-Za-z0-9]{4} \*{4}$/)
+    .optional(),
+  status: z.enum(["pending", "compeleted", "rejected"]).optional(),
 });
 
 export type BoxInfo = z.infer<typeof BoxInfoScheme>;

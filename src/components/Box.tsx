@@ -51,7 +51,6 @@ type TBoxInfo = {
 export default function Box({ boxInfo }: TBoxInfo) {
   const { mobileView } = useContext(mobileContext) || {};
   const classes = useStyles({ mobileView: mobileView || false });
-  console.log(boxInfo);
   return (
     <div className={classes.box}>
       <div

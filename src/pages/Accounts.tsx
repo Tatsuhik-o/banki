@@ -4,6 +4,7 @@ import { useContext } from "react";
 import MainCard from "../layouts/accounts/main_card/MainCard";
 import TitleCard from "../components/TitleCard";
 import CreditCard from "../components/CreditCard";
+import Upcoming from "../layouts/accounts/upcoming_bills/Upcoming";
 import { my_credit_cards } from "../utils/constants";
 
 const useStyles = makeStyles({
@@ -69,11 +70,12 @@ export default function Accounts() {
       <div className={classes.upcom_card}>
         <div className={classes.upcom_bills}>
           <TitleCard titleMessage="Upcoming Bills" />
+          <Upcoming />
         </div>
         <div className={classes.main_card}>
           <TitleCard titleMessage="Main Card" />
           <div className={classes.credit_card}>
-            <CreditCard cardDetails={my_credit_cards[0]} />;
+            <CreditCard cardDetails={my_credit_cards[0]} />
           </div>
         </div>
       </div>

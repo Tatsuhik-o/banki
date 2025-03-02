@@ -7,12 +7,11 @@ import {
   faPiggyBank,
   faScrewdriverWrench,
   faGear,
-} from "@fortawesome/free-solid-svg-icons";
-import {
   faMoneyBills,
   faSackDollar,
   faHandHoldingDollar,
   faFileInvoiceDollar,
+  faHeadphonesSimple,
 } from "@fortawesome/free-solid-svg-icons";
 import { faPaypal, faGooglePay } from "@fortawesome/free-brands-svg-icons";
 import { CreditCardType } from "./types";
@@ -381,5 +380,41 @@ export const box_info: BoxInfo[] = [
     secondaryColor: "#DCFAF8",
     title: "Total Saving",
     content: "$7,920",
+  },
+];
+
+export const upcoming_bills: BoxInfo[] = [
+  {
+    icon: faHeadphonesSimple,
+    primaryColor: "#2FDFD1",
+    secondaryColor: "#DCFAF8",
+    title: "Spotify Subscription",
+    content: "$150",
+    date: new Date("2024-01-25"),
+    type: "Shopping",
+    card: "4975 ****",
+    status: "pending",
+  },
+  {
+    icon: faScrewdriverWrench,
+    primaryColor: "#4372FF",
+    secondaryColor: "#E7EDFF",
+    title: "Mobile Service",
+    content: "$340",
+    date: new Date("2024-12-08"),
+    type: "Service",
+    card: "5172 ****",
+    status: "pending",
+  },
+  {
+    icon: faUser,
+    primaryColor: "#FF82AC",
+    secondaryColor: "#FFE0EB",
+    title: "Emily Wilson",
+    content: "$780",
+    date: new Date("2024-07-23"),
+    type: "Transfer",
+    card: "4975 ****",
+    status: "compeleted",
   },
 ];
