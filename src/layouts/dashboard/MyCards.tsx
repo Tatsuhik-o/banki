@@ -22,7 +22,12 @@ const useStyles = makeStyles({
     overflow: "hidden",
   },
 });
-export default function MyCards() {
+
+type TMyCards = {
+  titleMessage: string;
+};
+
+export default function MyCards({ titleMessage }: TMyCards) {
   const classes = useStyles();
   const [primaryCards, setPrimaryCards] = useState<number>(
     window.innerWidth < 650 ? 1 : 2
@@ -40,7 +45,7 @@ export default function MyCards() {
 
   return (
     <div className={classes.my_cards}>
-      <TitleCard titleMessage="My Cards" />
+      <TitleCard titleMessage={titleMessage} />
       <div className={classes.credit_cards}>
         {my_credit_cards
           .filter((_, idx) => idx < primaryCards)

@@ -15,12 +15,6 @@ const useStyles = makeStyles({
     flexDirection: "column",
     gap: (props: { mobileView: boolean; dashboardHeight: number }) =>
       !props.mobileView ? "10px" : "15px",
-    "& > *": {
-      width: "100%",
-      display: "flex",
-      justifyContent: "space-between",
-      gap: "15px",
-    },
   },
   card_tran: {
     width: "100%",
@@ -92,7 +86,7 @@ export default function Dashboard() {
     <div className={classes.dashboard} ref={dashBoardRef}>
       <div className={classes.card_tran}>
         <div className={classes.card_wrapper}>
-          <MyCards />
+          <MyCards titleMessage="My Cards" />
         </div>
         <div className={classes.tran_wrapper}>
           <RecentTransactions />

@@ -194,7 +194,7 @@ export default function Transactions() {
     <div className={classes.transactions}>
       <div className={classes.card_expen}>
         <div className={classes.card_wrapper}>
-          <MyCards />
+          <MyCards titleMessage="My Cards" />
         </div>
         <div className={classes.tran_wrapper}>
           <BarExpense />

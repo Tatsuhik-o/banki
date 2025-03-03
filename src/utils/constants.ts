@@ -2,7 +2,6 @@ import {
   faHouse,
   faMoneyCheckDollar,
   faUser,
-  faChartSimple,
   faCreditCard,
   faPiggyBank,
   faScrewdriverWrench,
@@ -38,10 +37,6 @@ export const nav_bar = [
   {
     icon: faUser,
     name: "Accounts",
-  },
-  {
-    icon: faChartSimple,
-    name: "Investments",
   },
   {
     icon: faCreditCard,
@@ -84,7 +79,7 @@ export const my_credit_cards: CreditCardType[] = [
     expiry_date: "01/29",
     card_number: "4539148803436467",
     type: "secondary",
-    provider: "visa",
+    provider: "american",
   },
   {
     balance: formatBalance(3483),

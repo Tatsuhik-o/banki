@@ -4,7 +4,6 @@ import { mobileContext } from "./utils/context.ts";
 import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
 import Accounts from "./pages/Accounts";
-import Investments from "./pages/Investments";
 import Cards from "./pages/Cards";
 import Loans from "./pages/Loans";
 import Services from "./pages/Services";
@@ -53,7 +52,6 @@ function App() {
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/transactions" element={<Transactions />} />
                   <Route path="/accounts" element={<Accounts />} />
-                  <Route path="/investments" element={<Investments />} />
                   <Route path="/cards" element={<Cards />} />
                   <Route path="/loans" element={<Loans />} />
                   <Route path="/services" element={<Services />} />
