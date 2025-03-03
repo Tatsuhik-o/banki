@@ -29,8 +29,9 @@ export const CreditCardScheme = z.object({
   card_holder: z.string().min(5).max(45),
   expiry_date: z.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/),
   card_number: z.string().refine(isValidLuhn),
-  type: z.enum(["primary", "secondary"]),
+  type: z.enum(["primary", "secondary", "other"]),
   provider: z.enum(["visa", "mastercard", "american"]),
+  bank: z.string().optional(),
 });
 
 export type CreditCardType = z.infer<typeof CreditCardScheme>;

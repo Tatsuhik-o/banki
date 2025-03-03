@@ -31,7 +31,9 @@ const useStyles = makeStyles({
     background: (props: { cardType: string; mobileView: boolean }) =>
       props.cardType === "primary"
         ? "linear-gradient(#3835EF, #3532F1)"
-        : "#ffffff",
+        : props.cardType === "secondary"
+        ? "#ffffff"
+        : "linear-gradient(to right, #FCC08D, #E65FFF)",
   },
   upper_layer: {
     display: "flex",
@@ -87,9 +89,15 @@ const useStyles = makeStyles({
     background: (props: { cardType: string; mobileView: boolean }) =>
       props.cardType === "primary"
         ? "linear-gradient(#4A47F4, #2724F1)"
-        : "#ffffff",
+        : props.cardType === "secondary"
+        ? "#ffffff"
+        : "linear-gradient(to right, #FCC08D, #E65FFF)",
     borderTop: (props: { cardType: string }) =>
-      props.cardType === "primary" ? "none" : "1px solid #F7FAFC",
+      props.cardType === "primary"
+        ? "none"
+        : props.cardType === "secondary"
+        ? "1px solid #F7FAFC"
+        : "1px solid #F399BC",
   },
 
   card_number: {
@@ -123,7 +131,7 @@ export default function CreditCard({ cardDetails }: TCreditCardProps) {
           <div className={classes.sim_tray}>
             <img
               src={
-                cardType === "primary"
+                cardType === "primary" || "other"
                   ? "sim_tray_primary.png"
                   : "sim_tray_secondary.png"
               }

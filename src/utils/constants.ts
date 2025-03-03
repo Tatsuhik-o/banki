@@ -64,6 +64,7 @@ export const my_credit_cards: CreditCardType[] = [
     card_number: "4532015112830366",
     type: "primary",
     provider: "visa",
+    bank: "CIH",
   },
   {
     balance: formatBalance(24810),
@@ -72,22 +73,25 @@ export const my_credit_cards: CreditCardType[] = [
     card_number: "5258319275342063",
     type: "secondary",
     provider: "mastercard",
+    bank: "CIH",
   },
   {
     balance: formatBalance(15460),
     card_holder: "Imane Rossafi",
     expiry_date: "01/29",
     card_number: "4539148803436467",
-    type: "secondary",
+    type: "other",
     provider: "american",
+    bank: "BOJ",
   },
   {
     balance: formatBalance(3483),
     card_holder: "Kamal Tangui",
     expiry_date: "06/26",
     card_number: "6011590423789154",
-    type: "secondary",
+    type: "other",
     provider: "american",
+    bank: "BOA",
   },
 ];
 
