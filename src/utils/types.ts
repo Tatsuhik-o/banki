@@ -111,3 +111,14 @@ export const OneSettingOption = z.object({
 });
 
 export type OneSettingType = z.infer<typeof OneSettingOption>;
+
+export const LoanSchema = z.object({
+  id: z.number(),
+  loanMoney: z.number(),
+  leftMoney: z.number(),
+  duration: z.number(),
+  interest: z.number(),
+  installement: z.number().min(1).max(5),
+});
+
+export type LoanDataType = z.infer<typeof LoanSchema>;

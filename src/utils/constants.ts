@@ -15,6 +15,8 @@ import {
   faLock,
   faLockOpen,
   faKey,
+  faBriefcase,
+  faChartSimple,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faPaypal,
@@ -28,6 +30,7 @@ import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FriendType } from "./types";
 import { BoxInfo } from "./types";
 import { OneSettingType } from "./types";
+import { LoanDataType } from "./types";
 
 export const nav_bar = [
   {
@@ -392,6 +395,37 @@ export const box_info: BoxInfo[] = [
   },
 ];
 
+export const loans_info: BoxInfo[] = [
+  {
+    icon: faUser,
+    primaryColor: "#396AFF",
+    secondaryColor: "#E7EDFF",
+    title: "Personal Loans",
+    content: "$50,000",
+  },
+  {
+    icon: faBriefcase,
+    primaryColor: "#FFBB38",
+    secondaryColor: "#FFF5D9",
+    title: "Corporate Loans",
+    content: "$100,000",
+  },
+  {
+    icon: faChartSimple,
+    primaryColor: "#FF82AC",
+    secondaryColor: "#FFE0EB",
+    title: "Business Loans",
+    content: "$500,000",
+  },
+  {
+    icon: faScrewdriverWrench,
+    primaryColor: "#16DBCC",
+    secondaryColor: "#DCFAF8",
+    title: "Custom Loans",
+    content: "$3,460",
+  },
+];
+
 export const upcoming_bills: BoxInfo[] = [
   {
     icon: faHeadphonesSimple,
@@ -498,5 +532,72 @@ export const settings_options: OneSettingType[] = [
     desc: "Pay With Your Card On Any iPhone",
     color: "#FF82AC",
     bgColor: "#FFE0EB",
+  },
+];
+
+export const loans_data: LoanDataType[] = [
+  {
+    id: 1,
+    loanMoney: 100000,
+    leftMoney: 40500,
+    duration: 8,
+    interest: 12,
+    installement: 2000,
+  },
+  {
+    id: 2,
+    loanMoney: 500000,
+    leftMoney: 250000,
+    duration: 36,
+    interest: 10,
+    installement: 8000,
+  },
+  {
+    id: 3,
+    loanMoney: 900000,
+    leftMoney: 40500,
+    duration: 12,
+    interest: 12,
+    installement: 5000,
+  },
+  {
+    id: 4,
+    loanMoney: 50000,
+    leftMoney: 40500,
+    duration: 25,
+    interest: 5,
+    installement: 2000,
+  },
+  {
+    id: 5,
+    loanMoney: 50000,
+    leftMoney: 40500,
+    duration: 5,
+    interest: 16,
+    installement: 10000,
+  },
+  {
+    id: 6,
+    loanMoney: 80000,
+    leftMoney: 25500,
+    duration: 14,
+    interest: 8,
+    installement: 2000,
+  },
+  {
+    id: 7,
+    loanMoney: 12000,
+    leftMoney: 5500,
+    duration: 9,
+    interest: 13,
+    installement: 500,
+  },
+  {
+    id: 8,
+    loanMoney: 160000,
+    leftMoney: 100800,
+    duration: 3,
+    interest: 12,
+    installement: 900,
   },
 ];
