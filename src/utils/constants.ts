@@ -12,6 +12,9 @@ import {
   faFileInvoiceDollar,
   faHeadphonesSimple,
   faFilm,
+  faLock,
+  faLockOpen,
+  faKey,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faPaypal,
@@ -24,6 +27,7 @@ import { TransactionType } from "./types";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FriendType } from "./types";
 import { BoxInfo } from "./types";
+import { OneSettingType } from "./types";
 
 export const nav_bar = [
   {
@@ -64,6 +68,7 @@ export const my_credit_cards: CreditCardType[] = [
     card_number: "4532015112830366",
     type: "primary",
     provider: "visa",
+    bank: "CIH",
   },
   {
     balance: formatBalance(24810),
@@ -72,22 +77,25 @@ export const my_credit_cards: CreditCardType[] = [
     card_number: "5258319275342063",
     type: "secondary",
     provider: "mastercard",
+    bank: "CIH",
   },
   {
     balance: formatBalance(15460),
     card_holder: "Imane Rossafi",
     expiry_date: "01/29",
     card_number: "4539148803436467",
-    type: "secondary",
+    type: "other",
     provider: "american",
+    bank: "BOJ",
   },
   {
     balance: formatBalance(3483),
     card_holder: "Kamal Tangui",
     expiry_date: "06/26",
     card_number: "6011590423789154",
-    type: "secondary",
+    type: "other",
     provider: "american",
+    bank: "BOA",
   },
 ];
 
@@ -452,5 +460,43 @@ export const invoices: BoxInfo[] = [
     title: "Netflix",
     content: "$90",
     date: new Date(new Date().getTime() - Math.random() * 100000000),
+  },
+];
+
+export const settings_options: OneSettingType[] = [
+  {
+    icon: faLock,
+    name: "Block Card",
+    desc: "Instantly Block your card",
+    color: "#4372FF",
+    bgColor: "#E7EDFF",
+  },
+  {
+    icon: faKey,
+    name: "Change Pin Code",
+    desc: "Choose Another Pin Code For Your Card",
+    color: "#FFBB38",
+    bgColor: "#FFF5D9",
+  },
+  {
+    icon: faLockOpen,
+    name: "Unblock Card",
+    desc: "Unblock All Your Cards",
+    color: "#4372FF",
+    bgColor: "#E7EDFF",
+  },
+  {
+    icon: faGooglePay,
+    name: "Add To Google Play",
+    desc: "Pay With Your Card On Any Android Phone",
+    color: "#16DBCC",
+    bgColor: "#DCFAF8",
+  },
+  {
+    icon: faApplePay,
+    name: "Add To Apple Pay",
+    desc: "Pay With Your Card On Any iPhone",
+    color: "#FF82AC",
+    bgColor: "#FFE0EB",
   },
 ];
