@@ -3,7 +3,7 @@ import { CreditCardType } from "../utils/types";
 import { faCreditCard } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { mobileContext } from "../utils/context";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -86,23 +86,6 @@ export default function FlatCard({
 }: TCreditCard) {
   const { mobileView } = useContext(mobileContext) || {};
   const classes = useStyles({ mobileView: mobileView || false });
-  const [ipadView, setIpadView] = useState<boolean>(window.innerWidth < 1000);
-
-  useEffect(() => {
-    const ipadViewOnResize = () => {
-      if (mobileView) {
-        setIpadView(false);
-        return;
-      }
-      setIpadView(window.innerWidth < 1000);
-    };
-    window.addEventListener("resize", ipadViewOnResize);
-    return () => {
-      window.removeEventListener("resize", ipadViewOnResize);
-    };
-  }, []);
-
-  console.log(ipadView);
 
   return (
     <div className={classes.flat_card}>

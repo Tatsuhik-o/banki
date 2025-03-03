@@ -101,3 +101,13 @@ export const BoxInfoScheme = z.object({
 });
 
 export type BoxInfo = z.infer<typeof BoxInfoScheme>;
+
+export const OneSettingOption = z.object({
+  icon: z.custom<IconDefinition>(),
+  name: z.string(),
+  desc: z.string(),
+  color: z.string(),
+  bgColor: z.string(),
+});
+
+export type OneSettingType = z.infer<typeof OneSettingOption>;

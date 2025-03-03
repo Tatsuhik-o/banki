@@ -67,6 +67,8 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     gap: "10px",
+    padding: (props: { mobileView: boolean }) =>
+      props.mobileView ? "0.5rem" : "0rem",
   },
   list_wrapper: {
     height: "250px",
@@ -75,6 +77,8 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     gap: "10px",
+    padding: (props: { mobileView: boolean }) =>
+      props.mobileView ? "0.5rem" : "0rem",
   },
   new_settings: {
     width: "100%",
@@ -88,19 +92,25 @@ const useStyles = makeStyles({
       props.mobileView ? "fit-content" : "250px",
   },
   new_card_wrapper: {
-    height: "400px",
+    height: (props: { mobileView: boolean }) =>
+      props.mobileView ? "fit-content" : "400px",
     width: (props: { mobileView: boolean }) =>
       props.mobileView ? "100%" : "calc(66%)",
     display: "flex",
     flexDirection: "column",
+    padding: (props: { mobileView: boolean }) =>
+      props.mobileView ? "0.5rem" : "0rem",
     gap: "10px",
   },
   settings_wrapper: {
-    height: "400px",
+    height: (props: { mobileView: boolean }) =>
+      props.mobileView ? "fit-content" : "400px",
     width: (props: { mobileView: boolean }) =>
       props.mobileView ? "100%" : "calc(33%)",
     display: "flex",
     flexDirection: "column",
+    padding: (props: { mobileView: boolean }) =>
+      props.mobileView ? "0.5rem" : "0rem",
     gap: "10px",
   },
   my_cards: {
