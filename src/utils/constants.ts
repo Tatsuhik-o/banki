@@ -921,3 +921,33 @@ export const country_list: string[] = [
   "Zambia",
   "Zimbabwe",
 ];
+
+export const currencies: string[] = ["USD", "EUR", "JPY", "MAD", "GBP"];
+
+export const timeZones = [
+  { offset: "-12:00", city: "Baker Island" }, // UTC-12
+  { offset: "-11:00", city: "Pago Pago" }, // UTC-11
+  { offset: "-10:00", city: "Honolulu" }, // UTC-10
+  { offset: "-09:00", city: "Anchorage" }, // UTC-9
+  { offset: "-08:00", city: "Los Angeles" }, // UTC-8
+  { offset: "-07:00", city: "Denver" }, // UTC-7
+  { offset: "-06:00", city: "Chicago" }, // UTC-6
+  { offset: "-05:00", city: "New York" }, // UTC-5
+  { offset: "-04:00", city: "Santiago" }, // UTC-4
+  { offset: "-03:00", city: "Buenos Aires" }, // UTC-3
+  { offset: "-02:00", city: "South Georgia" }, // UTC-2
+  { offset: "-01:00", city: "Azores" }, // UTC-1
+  { offset: "±00:00", city: "London" }, // UTC±0
+  { offset: "+01:00", city: "Berlin" }, // UTC+1
+  { offset: "+02:00", city: "Cairo" }, // UTC+2
+  { offset: "+03:00", city: "Moscow" }, // UTC+3
+  { offset: "+04:00", city: "Dubai" }, // UTC+4
+  { offset: "+05:00", city: "Karachi" }, // UTC+5
+  { offset: "+06:00", city: "Dhaka" }, // UTC+6
+  { offset: "+07:00", city: "Bangkok" }, // UTC+7
+  { offset: "+08:00", city: "Beijing" }, // UTC+8
+  { offset: "+09:00", city: "Tokyo" }, // UTC+9
+  { offset: "+10:00", city: "Sydney" }, // UTC+10
+  { offset: "+11:00", city: "Nouméa" }, // UTC+11
+  { offset: "+12:00", city: "Auckland" }, // UTC+12
+];

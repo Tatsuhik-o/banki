@@ -23,9 +23,6 @@ const useStyles = makeStyles({
     backgroundColor: "#FFFFFF",
     borderRadius: "25px",
     overflow: "hidden",
-    "& > *:not(:last-child)": {
-      borderBottom: "1px solid #DCDEE1",
-    },
   },
 });
 
