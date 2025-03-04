@@ -47,6 +47,11 @@ const useStyles = makeStyles({
     color: "#2623F4",
     borderRadius: "15px",
     cursor: "pointer",
+    transition: "all 0.25s ease-in-out",
+    "&:hover": {
+      backgroundColor: "#2623F4",
+      color: "#FFFFFF",
+    },
   },
 });
 
@@ -57,7 +62,7 @@ type TLoanLine = {
 export default function LoanLine({ loanInfo }: TLoanLine) {
   const { mobileView } = useContext(mobileContext) || {};
   const classes = useStyles({ mobileView: mobileView || false });
-  console.log(loanInfo);
+
   return (
     <div className={classes.loan_line}>
       {!mobileView && (
