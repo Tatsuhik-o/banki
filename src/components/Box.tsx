@@ -15,8 +15,6 @@ const useStyles = makeStyles({
     gap: "10px",
     justifyContent: "center",
     alignItems: "center",
-    maxWidth: (props: { mobileView: boolean }) =>
-      props.mobileView ? "fit-content" : "225px",
   },
   icon_layout: {
     height: (props: { mobileView: boolean }) =>
@@ -31,6 +29,7 @@ const useStyles = makeStyles({
   content_layout: {
     display: "flex",
     flexDirection: "column",
+    overflow: "hidden",
   },
   title: {
     color: "#718EBF",
@@ -41,6 +40,9 @@ const useStyles = makeStyles({
     color: "#232323",
     fontFamily: "Source Code Pro",
     fontSize: "1.3rem",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
   },
 });
 

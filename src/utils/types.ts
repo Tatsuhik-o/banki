@@ -98,6 +98,9 @@ export const BoxInfoScheme = z.object({
     .regex(/[A-Za-z0-9]{4} \*{4}$/)
     .optional(),
   status: z.enum(["pending", "compeleted", "rejected"]).optional(),
+  column1: z.string().optional(),
+  column2: z.string().optional(),
+  column3: z.string().optional(),
 });
 
 export type BoxInfo = z.infer<typeof BoxInfoScheme>;
