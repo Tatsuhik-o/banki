@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { mobileContext } from "../../utils/context";
 import { nav_bar } from "../../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { routes } from "../../utils/constants";
 
 const useStyles = makeStyles({
   sidebar: {
@@ -101,17 +102,23 @@ const useStyles = makeStyles({
   },
 });
 
+function extractPath(untrimmedPath: string): string {
+  const pathSegment = untrimmedPath.split("/")[0];
+  return routes.find((route) => route === pathSegment) ? pathSegment : "404";
+}
+
 export default function Sidebar() {
   const { mobileView } = useContext(mobileContext) || { mobileView: false };
   const classes = useStyles({ mobileView });
-  const currentPath = useLocation().pathname.substring(1) || "Dashboard";
+  const currentPath =
+    extractPath(useLocation().pathname.substring(1)) || "Dashboard";
 
   return (
     <div className={classes.sidebar}>
       <Link to={"/"}>
         <div className={classes.logo}>
-          {!mobileView && <img src="logo.png" alt="" />}
-          {mobileView && <img src="logo_mobile.png" alt="" />}
+          {!mobileView && <img src="/logo.png" alt="" />}
+          {mobileView && <img src="/logo_mobile.png" alt="" />}
         </div>
       </Link>
       <div className={classes.nav_bar}>

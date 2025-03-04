@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { mobileContext } from "./utils/context.ts";
 import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
@@ -11,6 +11,9 @@ import Settings from "./pages/Settings";
 import Unfound from "./pages/Unfound";
 import Header from "./layouts/header/Header";
 import Sidebar from "./layouts/sidebar/Sidebar";
+import Edit from "./layouts/setting/edit/Edit.tsx";
+import Preference from "./layouts/setting/preference/Preference.tsx";
+import Security from "./layouts/setting/security/Security.tsx";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -55,7 +58,12 @@ function App() {
                   <Route path="/cards" element={<Cards />} />
                   <Route path="/loans" element={<Loans />} />
                   <Route path="/services" element={<Services />} />
-                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/settings" element={<Settings />}>
+                    <Route index element={<Navigate to="edit" replace />} />
+                    <Route path="edit" element={<Edit />} />
+                    <Route path="preference" element={<Preference />} />
+                    <Route path="security" element={<Security />} />
+                  </Route>
                   <Route path="*" element={<Unfound />} />
                 </Routes>
               </div>

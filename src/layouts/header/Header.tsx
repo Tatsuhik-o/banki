@@ -8,6 +8,7 @@ import {
   faMagnifyingGlass,
   faBell,
 } from "@fortawesome/free-solid-svg-icons";
+import { routes } from "../../utils/constants";
 
 const useStyles = makeStyles({
   header: {
@@ -93,9 +94,17 @@ const useStyles = makeStyles({
   },
 });
 
+function extractPath(untrimmedPath: string): string {
+  const pathSegment = untrimmedPath.split("/")[0];
+  return routes.find((route) => route === pathSegment) ? pathSegment : "404";
+}
+
 export default function Header() {
   const { mobileView } = useContext(mobileContext) || {};
-  const currentPath = useLocation().pathname.substring(1) || "Dashboard";
+  const currentPath =
+    useLocation().pathname.substring(1) === ""
+      ? "Dashboard"
+      : extractPath(useLocation().pathname.substring(1));
   const [profileImage, setProfileImage] = useState<string | undefined>(
     undefined
   );
@@ -105,20 +114,20 @@ export default function Header() {
     const controller = new AbortController();
     const fast = new Promise((resolve) => {
       setTimeout(() => {
-        resolve("placeholder_image.png");
+        resolve("/placeholder_image.png");
         controller.abort();
       }, 250);
     });
 
     const fetchNewImage = async (): Promise<string> => {
-      setTimeout(() => {
-        controller.abort();
-      }, 250);
-      const response = await fetch("https://avatar.iran.liara.run/public", {
+      const URL = `https://avatar.iran.liara.run/public`;
+      const response = await fetch(URL, {
         signal: controller.signal,
       });
-      const data = await response.json();
-      return data;
+      if (response.ok) {
+        return URL;
+      }
+      return "/placeholder_image.png";
     };
 
     Promise.any([fast, fetchNewImage()]).then((res) => {
