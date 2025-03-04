@@ -1,7 +1,6 @@
 import { makeStyles } from "@mui/styles";
 import { mobileContext } from "../utils/context";
 import { useCallback, useContext, useState } from "react";
-import MyCards from "../layouts/dashboard/MyCards";
 import BarExpense from "../layouts/transactions/BarExpense";
 import TitleCard from "../components/TitleCard";
 import { FullTransaction } from "../utils/types";
@@ -11,6 +10,91 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import TransactionLine from "../components/TransactionLine";
 import FullTransactionLine from "../components/FullTransactionLine";
 import { formatBalance } from "../utils/constants";
+import CreditCard from "../components/CreditCard";
+import { my_credit_cards } from "../utils/constants";
+import { Line } from "react-chartjs-2";
+import {
+  Chart,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+} from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+Chart.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ChartDataLabels
+);
+
+const labels = [];
+const currentYear = new Date().getFullYear();
+for (let i = 5; i >= 0; i--) {
+  labels.push(currentYear - i);
+}
+
+const values = Array.from(
+  { length: 6 },
+  () => Math.floor(Math.random() * (40000 - 5000 + 1)) + 5000
+);
+
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      label: "Investement",
+      data: values,
+      borderColor: "#FCAA0B",
+      backgroundColor: "rgba(252, 170, 11, 0.2)",
+      borderWidth: 2,
+    },
+  ],
+};
+
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+    datalabels: {
+      display: false,
+    },
+    tooltip: {
+      callbacks: {
+        label: function (tooltipItem: any) {
+          return tooltipItem.raw;
+        },
+      },
+    },
+  },
+  scales: {
+    x: {
+      offset: true,
+      ticks: {
+        color: "#000",
+      },
+      grid: {
+        display: false,
+      },
+    },
+    y: {
+      ticks: {
+        stepSize: 10000,
+        color: "#000",
+      },
+      beginAtZero: true,
+      grid: {
+        display: true,
+      },
+      border: {
+        dash: [6, 6],
+      },
+    },
+  },
+};
 
 const useStyles = makeStyles({
   transactions: {
@@ -35,9 +119,25 @@ const useStyles = makeStyles({
     flexDirection: (props: { mobileView: boolean; activeTab: number }) =>
       !props.mobileView ? "row" : "column",
   },
+  point_chart: (props: { mobileView: boolean; activeTab: number }) => ({
+    height: "250px",
+    width: props.mobileView ? "100%" : "calc(33%)",
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+    padding: "0.5rem",
+  }),
+  chart: {
+    width: "100%",
+    flex: "1",
+  },
   card_wrapper: (props: { mobileView: boolean; activeTab: number }) => ({
     height: "250px",
-    width: props.mobileView ? "100%" : "calc(66%)",
+    width: props.mobileView ? "100%" : "calc(33%)",
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+    padding: "0.5rem",
   }),
   tran_wrapper: (props: { mobileView: boolean; activeTab: number }) => ({
     height: "250px",
@@ -193,8 +293,15 @@ export default function Transactions() {
   return (
     <div className={classes.transactions}>
       <div className={classes.card_expen}>
+        <div className={classes.point_chart}>
+          <TitleCard titleMessage={"Investements"} />
+          <div className={classes.chart}>
+            <Line data={data} options={options} />
+          </div>
+        </div>
         <div className={classes.card_wrapper}>
-          <MyCards titleMessage="My Cards" />
+          <TitleCard titleMessage={"Active Card"} />
+          <CreditCard cardDetails={my_credit_cards[2]} />
         </div>
         <div className={classes.tran_wrapper}>
           <BarExpense />

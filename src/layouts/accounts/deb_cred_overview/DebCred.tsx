@@ -114,6 +114,9 @@ const useStyles = makeStyles({
     textTransform: "capitalize",
     color: "#B8C7DF",
     fontFamily: "Poppins",
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
   },
   representation: {},
 });
@@ -125,9 +128,13 @@ export default function DebCred() {
     <div className={classes.debit_credit}>
       <div className={classes.overview}>
         <p className={classes.snippet}>
-          <span style={{ color: "#333B69" }}>$7,650 </span> Debited &{" "}
-          <span style={{ color: "#333B69" }}>$13480 </span>
-          Credited
+          <div>
+            <span style={{ color: "#333B69" }}>$7,650 </span> Debited
+          </div>
+          <div>
+            <span style={{ color: "#333B69" }}>$13480 </span>
+            Credited
+          </div>
         </p>
         <div className={classes.representation}></div>
       </div>
