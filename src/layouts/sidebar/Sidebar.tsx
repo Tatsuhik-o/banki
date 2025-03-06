@@ -104,14 +104,16 @@ const useStyles = makeStyles({
 
 function extractPath(untrimmedPath: string): string {
   const pathSegment = untrimmedPath.split("/")[0];
+  if (pathSegment === "") return "";
   return routes.find((route) => route === pathSegment) ? pathSegment : "404";
 }
 
 export default function Sidebar() {
   const { mobileView } = useContext(mobileContext) || { mobileView: false };
   const classes = useStyles({ mobileView });
+  const location = useLocation();
   const currentPath =
-    extractPath(useLocation().pathname.substring(1)) || "Dashboard";
+    extractPath(location.pathname.substring(1)) || "Dashboard";
 
   return (
     <div className={classes.sidebar}>

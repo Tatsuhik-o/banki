@@ -101,13 +101,14 @@ function extractPath(untrimmedPath: string): string {
 
 export default function Header() {
   const { mobileView } = useContext(mobileContext) || {};
-  const currentPath =
-    useLocation().pathname.substring(1) === ""
-      ? "Dashboard"
-      : extractPath(useLocation().pathname.substring(1));
   const [profileImage, setProfileImage] = useState<string | undefined>(
     undefined
   );
+  const location = useLocation();
+  const currentPath =
+    location.pathname.substring(1) === ""
+      ? "Dashboard"
+      : extractPath(location.pathname.substring(1));
   const classes = useStyles({ mobileView: mobileView || false });
 
   useEffect(() => {
