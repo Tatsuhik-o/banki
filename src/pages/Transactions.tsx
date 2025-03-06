@@ -1,9 +1,9 @@
 import { makeStyles } from "@mui/styles";
 import { mobileContext } from "../utils/context";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import BarExpense from "../layouts/transactions/BarExpense";
 import TitleCard from "../components/TitleCard";
-import { FullTransaction } from "../utils/types";
+import { CreditCardType, FullTransaction } from "../utils/types";
 import { full_transactions } from "../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +11,7 @@ import TransactionLine from "../components/TransactionLine";
 import FullTransactionLine from "../components/FullTransactionLine";
 import { formatBalance } from "../utils/constants";
 import CreditCard from "../components/CreditCard";
-import { my_credit_cards } from "../utils/constants";
+import Loading from "../components/Loading";
 import { Line } from "react-chartjs-2";
 import {
   Chart,
@@ -267,6 +267,21 @@ export default function Transactions() {
   const [activeTab, setActiveTab] = useState<number>(0);
   const pageNums = Math.ceil(allTransactions.length / 10);
 
+  const [activeCard, setActiveCard] = useState<CreditCardType | undefined>(
+    undefined
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    fetch(`https://banki-six.vercel.app/api/fetch_id_card?id=3`)
+      .then((response) => response.json())
+      .then((data) => {
+        setActiveCard(data[0]);
+        setIsLoading(false);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   const onlyExpenses = useCallback(() => {
     setActiveTab(2);
     setAllTransactions(
@@ -301,7 +316,8 @@ export default function Transactions() {
         </div>
         <div className={classes.card_wrapper}>
           <TitleCard titleMessage={"Active Card"} />
-          <CreditCard cardDetails={my_credit_cards[2]} />
+          {isLoading && <Loading />}
+          {!isLoading && activeCard && <CreditCard cardDetails={activeCard} />}
         </div>
         <div className={classes.tran_wrapper}>
           <BarExpense />

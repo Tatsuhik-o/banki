@@ -82,7 +82,9 @@ const useStyles = makeStyles({
   },
   bottom_card: {
     padding: "0rem 1rem",
+    overflow: "hidden",
     height: "25%",
+    width: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -118,8 +120,11 @@ const useStyles = makeStyles({
 
 export default function CreditCard({ cardDetails }: TCreditCardProps) {
   const { mobileView } = useContext(mobileContext) || {};
-  const cardType = cardDetails.type;
-  const classes = useStyles({ cardType, mobileView: mobileView ?? false });
+
+  const classes = useStyles({
+    cardType: cardDetails.type,
+    mobileView: mobileView ?? false,
+  });
   return (
     <div className={classes.credit_details}>
       <div className={classes.upper_card}>
@@ -131,7 +136,7 @@ export default function CreditCard({ cardDetails }: TCreditCardProps) {
           <div className={classes.sim_tray}>
             <img
               src={
-                cardType === "primary" || "other"
+                cardDetails.type === "primary" || "other"
                   ? "sim_tray_primary.png"
                   : "sim_tray_secondary.png"
               }
