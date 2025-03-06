@@ -11,15 +11,16 @@ const useStyles = makeStyles({
     borderRadius: "15px",
     display: "flex",
     flexDirection: "column",
-    gap: "25px",
+    gap: (props: { mobileView: boolean }) =>
+      props.mobileView ? "25px" : "40px",
     alignItems: "center",
   },
   paragraph: {
     color: "#7A95C3",
-    fontFamily: "Source Code Pro",
+    fontFamily: "Source Code",
     width: (props: { mobileView: boolean }) =>
       props.mobileView ? "100%" : "80%",
-    letterSpacing: "1.1px",
+    letterSpacing: "1px",
     lineHeight: (props: { mobileView: boolean }) =>
       props.mobileView ? "1rem" : "1.7rem",
   },

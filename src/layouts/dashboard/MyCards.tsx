@@ -1,8 +1,10 @@
 import TitleCard from "../../components/TitleCard";
-import CreditCard from "../../components/CreditCard";
-import { my_credit_cards } from "../../utils/constants";
 import { makeStyles } from "@mui/styles";
 import { useState, useEffect } from "react";
+import { CreditCardType } from "../../utils/types";
+import Loading from "../../components/Loading";
+
+import CreditCard from "../../components/CreditCard";
 
 const useStyles = makeStyles({
   my_cards: {
@@ -32,11 +34,22 @@ export default function MyCards({ titleMessage }: TMyCards) {
   const [primaryCards, setPrimaryCards] = useState<number>(
     window.innerWidth < 650 ? 1 : 2
   );
+  const [myCC, setMyCC] = useState<CreditCardType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    fetch("https://banki-six.vercel.app/api/fetch_cards")
+      .then((response) => response.json())
+      .then((results) => {
+        setMyCC(results);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+
     const checkResize = () => {
       setPrimaryCards(window.innerWidth < 650 ? 1 : 2);
     };
+
     window.addEventListener("resize", checkResize);
     return () => {
       window.removeEventListener("resize", checkResize);
@@ -46,13 +59,17 @@ export default function MyCards({ titleMessage }: TMyCards) {
   return (
     <div className={classes.my_cards}>
       <TitleCard titleMessage={titleMessage} />
-      <div className={classes.credit_cards}>
-        {my_credit_cards
-          .filter((_, idx) => idx < primaryCards)
-          .map((card) => {
-            return <CreditCard cardDetails={card} key={card.card_number} />;
-          })}
-      </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className={classes.credit_cards}>
+          {myCC
+            .filter((_, idx) => idx < primaryCards)
+            .map((card) => (
+              <CreditCard cardDetails={card} key={card.card_number} />
+            ))}
+        </div>
+      )}
     </div>
   );
 }

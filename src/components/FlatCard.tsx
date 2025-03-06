@@ -112,7 +112,7 @@ export default function FlatCard({
       </div>
       <div className={classes.name_on_card}>
         <p className={classes.upper}>Cardholder</p>
-        <p className={classes.lower}>{cardDetails.card_holder}</p>
+        <p className={classes.lower}>{cardDetails.card_holder.split(" ")[0]}</p>
       </div>
       {!mobileView && (
         <div className={classes.more_details}>

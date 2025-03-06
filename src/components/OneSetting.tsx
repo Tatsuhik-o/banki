@@ -33,18 +33,19 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    fontFamily: "Source Code Pro",
     overflow: "hidden",
   },
   upper: {
     color: "#232323",
     fontSize: "1rem",
+    fontFamily: "Source Code Pro",
   },
   lower: {
     textOverflow: "ellipsis",
     overflow: "hidden",
     whiteSpace: "nowrap",
     color: "#8CA3CB",
+    fontFamily: "Source Code Pro",
     fontSize: (props: { mobileView: boolean }) =>
       props.mobileView ? "0.8rem" : "0.8rem",
   },
