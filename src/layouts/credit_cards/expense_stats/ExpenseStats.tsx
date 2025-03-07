@@ -9,6 +9,9 @@ import {
   CategoryScale,
   LinearScale,
 } from "chart.js";
+import { useEffect, useState } from "react";
+import { CreditCardType } from "../../../utils/types";
+import Loading from "../../../components/Loading";
 
 ChartJS.register(
   Title,
@@ -24,19 +27,10 @@ const useStyles = makeStyles({
     padding: "0.5rem",
     width: "100%",
     flex: "1",
+    display: "flex",
+    justifyContent: "center",
   },
 });
-
-const data = {
-  labels: ["CIH", "BMCE", "BOA", "BOJ"],
-  datasets: [
-    {
-      data: [445, 135, 186, 234],
-      backgroundColor: ["#4C78FF", "#16DBCC", "#FF82AC", "#FFBB38"],
-      hoverOffset: 2,
-    },
-  ],
-};
 
 const options: any = {
   responsive: true,
@@ -68,11 +62,55 @@ const options: any = {
   },
 };
 
+const filterResults = (data: CreditCardType[]) => {
+  let temp: { [key: string]: number } = {};
+  data.forEach((elem) => {
+    if (elem.bank) {
+      if (temp[elem.bank]) {
+        temp[elem.bank]++;
+      } else {
+        temp[elem.bank] = 1;
+      }
+    }
+  });
+  return temp;
+};
+
 export default function ExpenseStats() {
   const classes = useStyles();
+  const [bankData, setBankData] = useState({});
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(
+        "https://banki-six.vercel.app/api/fetch_cards"
+      );
+      const data = (await response.json()) as CreditCardType[];
+      setBankData(filterResults(data));
+      setIsLoading(false);
+    })();
+  }, []);
+
+  const data = {
+    labels: Object.keys(bankData),
+    datasets: [
+      {
+        data: Object.values(bankData),
+        backgroundColor: ["#4C78FF", "#16DBCC", "#FF82AC", "#FFBB38"],
+        hoverOffset: 2,
+      },
+    ],
+  };
+
   return (
     <div className={classes.stats}>
-      <Doughnut data={data} options={options} />
+      {isLoading && (
+        <div>
+          <Loading />
+        </div>
+      )}
+      {!isLoading && bankData && <Doughnut data={data} options={options} />}
     </div>
   );
 }
