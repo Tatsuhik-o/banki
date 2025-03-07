@@ -6,6 +6,7 @@ const useStyles = makeStyles({
     fontFamily: "IBM Plex Sans",
     fontSize: "1.4rem",
     fontWeight: "bold",
+    minHeight: "35px",
     height: "fit-content",
     textOverflow: "ellipsis",
     overflow: "hidden",

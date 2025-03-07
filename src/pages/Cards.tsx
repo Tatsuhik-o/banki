@@ -140,15 +140,15 @@ export default function Cards() {
   const { mobileView } = useContext(mobileContext) || {};
   const classes = useStyles({ mobileView: mobileView || false });
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [activeCard, setActiveCard] = useState<CreditCardType | undefined>(
+  const [activeCard, setActiveCard] = useState<CreditCardType[] | undefined>(
     undefined
   );
 
   useEffect(() => {
-    fetch(`https://banki-six.vercel.app/api/fetch_id_card?id=3`)
+    fetch(`https://banki-six.vercel.app/api/fetch_cards`)
       .then((response) => response.json())
       .then((data) => {
-        setActiveCard(data[0]);
+        setActiveCard(data);
         setIsLoading(false);
       })
       .catch((error) => console.error(error));
@@ -164,13 +164,12 @@ export default function Cards() {
           <div className={classes.my_cards}>
             <TitleCard titleMessage="Secondary Card" />
             <div className={classes.credit_card}>
-              {isLoading ? (
+              {isLoading && (
                 <div>
                   <Loading />
                 </div>
-              ) : (
-                <CreditCard cardDetails={activeCard as CreditCardType} />
               )}
+              {activeCard && <CreditCard cardDetails={activeCard[2]} />}
             </div>
           </div>
         </div>
@@ -182,7 +181,10 @@ export default function Cards() {
         </div>
         <div className={classes.list_wrapper}>
           <TitleCard titleMessage="Card Details" />
-          <CardList />
+          <CardList
+            activeCard={activeCard as CreditCardType[]}
+            isLoading={isLoading}
+          />
         </div>
       </div>
       <div className={classes.new_settings}>

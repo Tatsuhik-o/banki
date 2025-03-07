@@ -13,8 +13,8 @@ const useStyles = makeStyles({
     backgroundColor: "#FFFFFF",
     padding: "0.5rem",
     borderRadius: "18px",
-    gap: (props: { mobileView: boolean }) =>
-      props.mobileView ? "15px" : "50px",
+    gap: "15px",
+    justifyContent: "space-between",
     "& > *": {
       height: "100%",
     },
@@ -90,7 +90,11 @@ export default function FlatCard({
   return (
     <div className={classes.flat_card}>
       <div className={classes.icon} style={{ backgroundColor: secondaryColor }}>
-        <FontAwesomeIcon icon={faCreditCard} color={primaryColor} />
+        <FontAwesomeIcon
+          icon={faCreditCard}
+          color={primaryColor}
+          fontSize={mobileView ? 15 : 18}
+        />
       </div>
       {!mobileView && (
         <div className={classes.type}>
@@ -116,7 +120,7 @@ export default function FlatCard({
       </div>
       {!mobileView && (
         <div className={classes.more_details}>
-          <Link to={"/cards"}>View Details</Link>
+          <Link to={"/Cards"}>View Details</Link>
         </div>
       )}
     </div>
