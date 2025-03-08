@@ -4,7 +4,6 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import BarExpense from "../layouts/transactions/BarExpense";
 import TitleCard from "../components/TitleCard";
 import { CreditCardType, FullTransaction } from "../utils/types";
-import { full_transactions } from "../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import TransactionLine from "../components/TransactionLine";
@@ -101,14 +100,25 @@ const useStyles = makeStyles({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    gap: (props: { mobileView: boolean; activeTab: number }) =>
-      !props.mobileView ? "10px" : "15px",
+    gap: (props: {
+      mobileView: boolean;
+      activeTab: number;
+      isLoading: boolean;
+    }) => (!props.mobileView ? "10px" : "15px"),
     "& > *": {
       width: "100%",
       display: "flex",
       justifyContent: "space-between",
       gap: "15px",
     },
+    height: (props: { isLoading: boolean }) => (props.isLoading ? "100%" : ""),
+  },
+  loading_wrapper: {
+    justifySelf: "center",
+    alignSelf: "center",
+    display: "flex",
+    justifyContent: "center",
+    height: "100%",
   },
   card_expen: {
     width: "100%",
@@ -261,11 +271,12 @@ export default function Transactions() {
   const { mobileView } = useContext(mobileContext) || {};
   const [currentPage, setCurrentPage] = useState<number>(0);
 
-  const [allTransactions, setAllTransactions] = useState(
-    full_transactions as FullTransaction[]
-  );
+  const [activeTransactions, setActiveTransactions] = useState<
+    FullTransaction[]
+  >([]);
+  const [allTransactions, setAllTransactions] = useState<FullTransaction[]>([]);
   const [activeTab, setActiveTab] = useState<number>(0);
-  const pageNums = Math.ceil(allTransactions.length / 10);
+  const pageNums = Math.ceil(activeTransactions.length / 10);
 
   const [activeCard, setActiveCard] = useState<CreditCardType | undefined>(
     undefined
@@ -280,151 +291,171 @@ export default function Transactions() {
         setIsLoading(false);
       })
       .catch((error) => console.error(error));
+    fetch("https://banki-six.vercel.app/api/fetch_transactions")
+      .then((response) => response.json())
+      .then((data) => {
+        setActiveTransactions(data);
+        setAllTransactions(data);
+      });
   }, []);
 
   const onlyExpenses = useCallback(() => {
     setActiveTab(2);
-    setAllTransactions(
-      full_transactions.filter((elem) => elem.amount < 0) as FullTransaction[]
+    setActiveTransactions(
+      allTransactions.filter((elem) => elem.amount < 0) as FullTransaction[]
     );
   }, [allTransactions]);
 
   const onlyIncomes = useCallback(() => {
     setActiveTab(1);
-    setAllTransactions(
-      full_transactions.filter((elem) => elem.amount > 0) as FullTransaction[]
+    setActiveTransactions(
+      allTransactions.filter((elem) => elem.amount > 0) as FullTransaction[]
     );
   }, [allTransactions]);
 
   const allOperations = useCallback(() => {
     setActiveTab(0);
-    setAllTransactions(full_transactions as FullTransaction[]);
+    setActiveTransactions(allTransactions as FullTransaction[]);
   }, [allTransactions]);
 
   const classes = useStyles({
     mobileView: mobileView || false,
     activeTab: activeTab || 0,
+    isLoading,
   });
   return (
     <div className={classes.transactions}>
-      <div className={classes.card_expen}>
-        <div className={classes.point_chart}>
-          <TitleCard titleMessage={"Investements"} />
-          <div className={classes.chart}>
-            <Line data={data} options={options} />
-          </div>
+      {isLoading && (
+        <div className={classes.loading_wrapper}>
+          <Loading />
         </div>
-        <div className={classes.card_wrapper}>
-          <TitleCard titleMessage={"Active Card"} />
-          {isLoading && <Loading />}
-          {!isLoading && activeCard && <CreditCard cardDetails={activeCard} />}
-        </div>
-        <div className={classes.tran_wrapper}>
-          <BarExpense />
-        </div>
-      </div>
-      <div className={classes.all_transactions}>
-        <TitleCard titleMessage="Recent Transactions" />
-        <div className={classes.filter_system}>
-          <div className={classes.no_filter} onClick={allOperations}>
-            All Transactions
-          </div>
-          <div className={classes.incomes_filter} onClick={onlyIncomes}>
-            Incomes
-          </div>
-          <div className={classes.expenses_filter} onClick={onlyExpenses}>
-            Expenses
-          </div>
-        </div>
-      </div>
-      <div className={classes.table_wrapper}>
-        {mobileView &&
-          allTransactions
-            .filter(
-              (_, idx) =>
-                idx <= (currentPage + 1) * 10 && idx > currentPage * 10
-            )
-            .map((elem, idx) => {
-              return (
-                <div key={idx} className={classes.one_transaction_line}>
-                  <TransactionLine
-                    transactionInfo={{
-                      amount:
-                        elem.amount > 0
-                          ? "+$" + formatBalance(elem.amount)
-                          : "-$" + formatBalance(Math.abs(elem.amount)),
-                      service: elem.description,
-                      date: new Date(elem.date),
-                    }}
-                  />
-                </div>
-              );
-            })}
-        {!mobileView && (
-          <div className={classes.transactions_wrapper}>
-            <div className={classes.table_head}>
-              <div>Description</div>
-              <div>Transaction ID</div>
-              <div>Type</div>
-              <div>Card</div>
-              <div>Date</div>
-              <div>Amount</div>
+      )}
+      {!isLoading && (
+        <>
+          <div className={classes.card_expen}>
+            <div className={classes.point_chart}>
+              <TitleCard titleMessage={"Investements"} />
+              <div className={classes.chart}>
+                <Line data={data} options={options} />
+              </div>
             </div>
-            {allTransactions
-              .filter(
-                (_, idx) =>
-                  idx <= (currentPage + 1) * 10 && idx > currentPage * 10
-              )
-              .map((elem, idx) => {
+            <div className={classes.card_wrapper}>
+              <TitleCard titleMessage={"Active Card"} />
+              {isLoading && <Loading />}
+              {!isLoading && activeCard && (
+                <CreditCard cardDetails={activeCard} />
+              )}
+            </div>
+            <div className={classes.tran_wrapper}>
+              <BarExpense />
+            </div>
+          </div>
+          <div className={classes.all_transactions}>
+            <TitleCard titleMessage="Recent Transactions" />
+            <div className={classes.filter_system}>
+              <div className={classes.no_filter} onClick={allOperations}>
+                All Transactions
+              </div>
+              <div className={classes.incomes_filter} onClick={onlyIncomes}>
+                Incomes
+              </div>
+              <div className={classes.expenses_filter} onClick={onlyExpenses}>
+                Expenses
+              </div>
+            </div>
+          </div>
+          <div className={classes.table_wrapper}>
+            {mobileView &&
+              activeTransactions
+                .filter(
+                  (_, idx) =>
+                    idx <= (currentPage + 1) * 10 && idx > currentPage * 10
+                )
+                .map((elem, idx) => {
+                  return (
+                    <div key={idx} className={classes.one_transaction_line}>
+                      <TransactionLine
+                        transactionInfo={{
+                          amount:
+                            elem.amount > 0
+                              ? "+$" + formatBalance(elem.amount)
+                              : "-$" + formatBalance(Math.abs(elem.amount)),
+                          service: elem.description,
+                          date: new Date(elem.date),
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+            {!mobileView && (
+              <div className={classes.transactions_wrapper}>
+                <div className={classes.table_head}>
+                  <div>Description</div>
+                  <div>Transaction ID</div>
+                  <div>Type</div>
+                  <div>Card</div>
+                  <div>Date</div>
+                  <div>Amount</div>
+                </div>
+                {activeTransactions
+                  .filter(
+                    (_, idx) =>
+                      idx <= (currentPage + 1) * 10 && idx > currentPage * 10
+                  )
+                  .map((elem, idx) => {
+                    return (
+                      <div key={idx} className={classes.one_transaction_line}>
+                        <FullTransactionLine
+                          transactionInfo={{
+                            amount:
+                              elem.amount > 0
+                                ? "+$" + formatBalance(elem.amount)
+                                : "-$" + formatBalance(Math.abs(elem.amount)),
+                            service: elem.description,
+                            date: new Date(elem.date),
+                            id: elem.id,
+                            type: elem.type,
+                            card: elem.card,
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
+              </div>
+            )}
+          </div>
+          <div className={classes.pages_control}>
+            <button
+              onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
+            >
+              <FontAwesomeIcon icon={faArrowLeft} fontSize={12} /> previous
+            </button>
+            <div className={classes.list_pages}>
+              {Array.from({ length: pageNums }).map((_, idx) => {
                 return (
-                  <div key={idx} className={classes.one_transaction_line}>
-                    <FullTransactionLine
-                      transactionInfo={{
-                        amount:
-                          elem.amount > 0
-                            ? "+$" + formatBalance(elem.amount)
-                            : "-$" + formatBalance(Math.abs(elem.amount)),
-                        service: elem.description,
-                        date: new Date(elem.date),
-                        id: elem.id,
-                        type: elem.type,
-                        card: elem.card,
-                      }}
-                    />
+                  <div
+                    className={`${classes.one_page} ${
+                      idx === currentPage && classes.active_page
+                    }`}
+                    onClick={() => setCurrentPage(idx)}
+                    key={idx}
+                  >
+                    {idx + 1}
                   </div>
                 );
               })}
+            </div>
+            <button
+              onClick={() =>
+                setCurrentPage(Math.min(pageNums - 1, currentPage + 1))
+              }
+            >
+              next
+              <FontAwesomeIcon icon={faArrowRight} fontSize={12} />
+            </button>
           </div>
-        )}
-      </div>
-      <div className={classes.pages_control}>
-        <button onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}>
-          <FontAwesomeIcon icon={faArrowLeft} fontSize={12} /> previous
-        </button>
-        <div className={classes.list_pages}>
-          {Array.from({ length: pageNums }).map((_, idx) => {
-            return (
-              <div
-                className={`${classes.one_page} ${
-                  idx === currentPage && classes.active_page
-                }`}
-                onClick={() => setCurrentPage(idx)}
-                key={idx}
-              >
-                {idx + 1}
-              </div>
-            );
-          })}
-        </div>
-        <button
-          onClick={() =>
-            setCurrentPage(Math.min(pageNums - 1, currentPage + 1))
-          }
-        >
-          next
-          <FontAwesomeIcon icon={faArrowRight} fontSize={12} />
-        </button>
-      </div>
+        </>
+      )}
     </div>
   );
 }

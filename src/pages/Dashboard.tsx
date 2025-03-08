@@ -7,14 +7,22 @@ import WeeklyActivity from "../layouts/dashboard/WeeklyActivity";
 import { mobileContext } from "../utils/context";
 import { useContext, useEffect, useRef, useState } from "react";
 import { makeStyles } from "@mui/styles";
+import { CreditCardType } from "../utils/types";
+import Loading from "../components/Loading";
 
 const useStyles = makeStyles({
   dashboard: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    gap: (props: { mobileView: boolean; dashboardHeight: number }) =>
-      !props.mobileView ? "10px" : "15px",
+    gap: (props: {
+      mobileView: boolean;
+      dashboardHeight: number;
+      isLoading: boolean;
+    }) => (!props.mobileView ? "10px" : "15px"),
+    height: (props: { isLoading: boolean }) => (props.isLoading ? "100%" : ""),
+    justifyContent: (props: { isLoading: boolean }) =>
+      props.isLoading ? "center" : "",
   },
   card_tran: {
     width: "100%",
@@ -71,43 +79,59 @@ export default function Dashboard() {
   const { mobileView } = useContext(mobileContext) || {};
   const dashBoardRef = useRef<HTMLDivElement | null>(null);
   const [dashboardHeight, setDashboardHeight] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [activeCard, setActiveCard] = useState<CreditCardType[] | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     if (!dashBoardRef.current) return;
     setDashboardHeight(dashBoardRef.current.clientHeight);
+    fetch("https://banki-six.vercel.app/api/fetch_cards")
+      .then((response) => response.json())
+      .then((data) => {
+        setActiveCard(data);
+        setIsLoading(false);
+      });
   }, []);
 
   const classes = useStyles({
     mobileView: mobileView ?? false,
     dashboardHeight,
+    isLoading,
   });
 
   return (
     <div className={classes.dashboard} ref={dashBoardRef}>
-      <div className={classes.card_tran}>
-        <div className={classes.card_wrapper}>
-          <MyCards titleMessage="My Cards" />
-        </div>
-        <div className={classes.tran_wrapper}>
-          <RecentTransactions />
-        </div>
-      </div>
-      <div className={classes.acti_expen}>
-        <div className={classes.acti_wrapper}>
-          <WeeklyActivity />
-        </div>
-        <div className={classes.expen_wrapper}>
-          <ExpenseStatistics />
-        </div>
-      </div>
-      <div className={classes.quick_hist}>
-        <div className={classes.quick_wrapper}>
-          <QuickTransfer />
-        </div>
-        <div className={classes.hist_wrapper}>
-          <BalanceHistory />
-        </div>
-      </div>
+      {isLoading && <Loading />}
+      {!isLoading && (
+        <>
+          <div className={classes.card_tran}>
+            <div className={classes.card_wrapper}>
+              <MyCards activeData={activeCard} titleMessage="My Cards" />
+            </div>
+            <div className={classes.tran_wrapper}>
+              <RecentTransactions />
+            </div>
+          </div>
+          <div className={classes.acti_expen}>
+            <div className={classes.acti_wrapper}>
+              <WeeklyActivity />
+            </div>
+            <div className={classes.expen_wrapper}>
+              <ExpenseStatistics />
+            </div>
+          </div>
+          <div className={classes.quick_hist}>
+            <div className={classes.quick_wrapper}>
+              <QuickTransfer />
+            </div>
+            <div className={classes.hist_wrapper}>
+              <BalanceHistory />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

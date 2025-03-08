@@ -2,7 +2,6 @@ import TitleCard from "../../components/TitleCard";
 import { makeStyles } from "@mui/styles";
 import { useState, useEffect } from "react";
 import { CreditCardType } from "../../utils/types";
-import Loading from "../../components/Loading";
 
 import CreditCard from "../../components/CreditCard";
 
@@ -27,25 +26,16 @@ const useStyles = makeStyles({
 
 type TMyCards = {
   titleMessage: string;
+  activeData: CreditCardType[] | undefined;
 };
 
-export default function MyCards({ titleMessage }: TMyCards) {
+export default function MyCards({ titleMessage, activeData }: TMyCards) {
   const classes = useStyles();
   const [primaryCards, setPrimaryCards] = useState<number>(
     window.innerWidth < 650 ? 1 : 2
   );
-  const [myCC, setMyCC] = useState<CreditCardType[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch("https://banki-six.vercel.app/api/fetch_cards")
-      .then((response) => response.json())
-      .then((results) => {
-        setMyCC(results);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-
     const checkResize = () => {
       setPrimaryCards(window.innerWidth < 650 ? 1 : 2);
     };
@@ -59,17 +49,14 @@ export default function MyCards({ titleMessage }: TMyCards) {
   return (
     <div className={classes.my_cards}>
       <TitleCard titleMessage={titleMessage} />
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className={classes.credit_cards}>
-          {myCC
+      <div className={classes.credit_cards}>
+        {activeData &&
+          activeData
             .filter((_, idx) => idx < primaryCards)
             .map((card) => (
               <CreditCard cardDetails={card} key={card.card_number} />
             ))}
-        </div>
-      )}
+      </div>
     </div>
   );
 }
