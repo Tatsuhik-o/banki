@@ -273,13 +273,16 @@ export default function Transactions() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch(`https://banki-six.vercel.app/api/fetch_id_card?id=3`)
+    fetch(`http://localhost:3000/api/fetch_id_card?id=3`)
       .then((response) => response.json())
       .then((data) => {
         setActiveCard(data[0]);
         setIsLoading(false);
       })
       .catch((error) => console.error(error));
+    fetch("http://localhost:3000/api/fetch_transactions")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
   }, []);
 
   const onlyExpenses = useCallback(() => {

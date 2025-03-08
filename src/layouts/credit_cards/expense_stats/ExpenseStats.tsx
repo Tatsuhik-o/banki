@@ -9,7 +9,6 @@ import {
   CategoryScale,
   LinearScale,
 } from "chart.js";
-import { useEffect, useState } from "react";
 import { CreditCardType } from "../../../utils/types";
 import Loading from "../../../components/Loading";
 
@@ -62,8 +61,9 @@ const options: any = {
   },
 };
 
-const filterResults = (data: CreditCardType[]) => {
+const filterResults = (data: CreditCardType[] | undefined) => {
   let temp: { [key: string]: number } = {};
+  if (!data) return {};
   data.forEach((elem) => {
     if (elem.bank) {
       if (temp[elem.bank]) {
@@ -76,27 +76,20 @@ const filterResults = (data: CreditCardType[]) => {
   return temp;
 };
 
-export default function ExpenseStats() {
-  const classes = useStyles();
-  const [bankData, setBankData] = useState({});
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+type TExpenseStats = {
+  activeData: CreditCardType[] | undefined;
+  isLoading: boolean;
+};
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(
-        "https://banki-six.vercel.app/api/fetch_cards"
-      );
-      const data = (await response.json()) as CreditCardType[];
-      setBankData(filterResults(data));
-      setIsLoading(false);
-    })();
-  }, []);
+export default function ExpenseStats({ activeData, isLoading }: TExpenseStats) {
+  const classes = useStyles();
+  const results = filterResults(activeData);
 
   const data = {
-    labels: Object.keys(bankData),
+    labels: Object.keys(results),
     datasets: [
       {
-        data: Object.values(bankData),
+        data: Object.values(results),
         backgroundColor: ["#4C78FF", "#16DBCC", "#FF82AC", "#FFBB38"],
         hoverOffset: 2,
       },
@@ -110,7 +103,7 @@ export default function ExpenseStats() {
           <Loading />
         </div>
       )}
-      {!isLoading && bankData && <Doughnut data={data} options={options} />}
+      {!isLoading && <Doughnut data={data} options={options} />}
     </div>
   );
 }

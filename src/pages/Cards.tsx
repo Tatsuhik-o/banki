@@ -18,6 +18,10 @@ const useStyles = makeStyles({
     flexDirection: "column",
     gap: (props: { mobileView: boolean }) =>
       !props.mobileView ? "10px" : "15px",
+    height: (props: { mobileView: boolean; isLoading: boolean }) =>
+      props.isLoading ? "100%" : "",
+    justifyContent: (props: { isLoading: boolean }) =>
+      props.isLoading ? "center" : "",
   },
   cards_wrapper: {
     width: "100%",
@@ -138,14 +142,14 @@ const useStyles = makeStyles({
 
 export default function Cards() {
   const { mobileView } = useContext(mobileContext) || {};
-  const classes = useStyles({ mobileView: mobileView || false });
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const classes = useStyles({ mobileView: mobileView || false, isLoading });
   const [activeCard, setActiveCard] = useState<CreditCardType[] | undefined>(
     undefined
   );
 
   useEffect(() => {
-    fetch(`https://banki-six.vercel.app/api/fetch_cards`)
+    fetch(`http://localhost:3000/api/fetch_cards`)
       .then((response) => response.json())
       .then((data) => {
         setActiveCard(data);
@@ -156,47 +160,44 @@ export default function Cards() {
 
   return (
     <div className={classes.cards}>
-      <div className={classes.cards_wrapper}>
-        <div className={classes.first_row_wrapper}>
-          <MyCards titleMessage="Primary Cards" />
-        </div>
-        <div className={classes.second_row_wrapper}>
-          <div className={classes.my_cards}>
-            <TitleCard titleMessage="Secondary Card" />
-            <div className={classes.credit_card}>
-              {isLoading && (
-                <div>
-                  <Loading />
+      {isLoading && <Loading />}
+      {!isLoading && (
+        <>
+          <div className={classes.cards_wrapper}>
+            <div className={classes.first_row_wrapper}>
+              <MyCards activeData={activeCard} titleMessage="Primary Cards" />
+            </div>
+            <div className={classes.second_row_wrapper}>
+              <div className={classes.my_cards}>
+                <TitleCard titleMessage="Secondary Card" />
+                <div className={classes.credit_card}>
+                  {activeCard && <CreditCard cardDetails={activeCard[2]} />}
                 </div>
-              )}
-              {activeCard && <CreditCard cardDetails={activeCard[2]} />}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className={classes.expen_list}>
-        <div className={classes.expen_wrapper}>
-          <TitleCard titleMessage="Bank Distribution" />
-          <ExpenseStats />
-        </div>
-        <div className={classes.list_wrapper}>
-          <TitleCard titleMessage="Card Details" />
-          <CardList
-            activeCard={activeCard as CreditCardType[]}
-            isLoading={isLoading}
-          />
-        </div>
-      </div>
-      <div className={classes.new_settings}>
-        <div className={classes.new_card_wrapper}>
-          <TitleCard titleMessage="Add New Card" />
-          <AddCard />
-        </div>
-        <div className={classes.settings_wrapper}>
-          <TitleCard titleMessage="Card Settings" />
-          <CardSettings />
-        </div>
-      </div>
+          <div className={classes.expen_list}>
+            <div className={classes.expen_wrapper}>
+              <TitleCard titleMessage="Bank Distribution" />
+              <ExpenseStats activeData={activeCard} isLoading={isLoading} />
+            </div>
+            <div className={classes.list_wrapper}>
+              <TitleCard titleMessage="Card Details" />
+              <CardList activeCard={activeCard as CreditCardType[]} />
+            </div>
+          </div>
+          <div className={classes.new_settings}>
+            <div className={classes.new_card_wrapper}>
+              <TitleCard titleMessage="Add New Card" />
+              <AddCard />
+            </div>
+            <div className={classes.settings_wrapper}>
+              <TitleCard titleMessage="Card Settings" />
+              <CardSettings />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
