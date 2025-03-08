@@ -6,8 +6,11 @@ export default async function handler(request, response) {
 
   const getTransactions = "SELECT * FROM transactions";
 
+  console.log("So Far so Good");
+
   try {
     const db = await getDBConnection();
+    console.log(db);
     const [results] = await db.execute(getTransactions);
     await db.end();
     return res.status(200).json(results);
