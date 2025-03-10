@@ -87,7 +87,7 @@ export default function Dashboard() {
   useEffect(() => {
     if (!dashBoardRef.current) return;
     setDashboardHeight(dashBoardRef.current.clientHeight);
-    fetch("https://banki-six.vercel.app/api/fetch_cards")
+    fetch("http://localhost:3000/api/fetch_cards")
       .then((response) => response.json())
       .then((data) => {
         setActiveCard(data);
