@@ -85,14 +85,18 @@ export default function Dashboard() {
   );
 
   useEffect(() => {
-    if (!dashBoardRef.current) return;
-    setDashboardHeight(dashBoardRef.current.clientHeight);
-    fetch("http://localhost:3000/api/fetch_cards")
-      .then((response) => response.json())
-      .then((data) => {
+    (async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/fetch_cards");
+        const data = await response.json();
         setActiveCard(data);
         setIsLoading(false);
-      });
+      } catch (e) {
+        console.log("err: ", e);
+      }
+    })();
+    if (!dashBoardRef.current) return;
+    setDashboardHeight(dashBoardRef.current.clientHeight);
   }, []);
 
   const classes = useStyles({

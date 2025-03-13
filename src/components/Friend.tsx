@@ -83,7 +83,10 @@ export default function Friend({ friend, active, setActive }: TFriend) {
       </div>
       <div
         className={classes.friend_name}
-        style={{ fontWeight: active ? "600" : "400" }}
+        style={{
+          fontWeight: active ? "600" : "400",
+          color: active ? "#7A95C3" : "",
+        }}
       >
         {friend.name}
       </div>
