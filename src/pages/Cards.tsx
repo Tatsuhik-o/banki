@@ -149,13 +149,23 @@ export default function Cards() {
   );
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/fetch_cards`)
-      .then((response) => response.json())
-      .then((data) => {
+    const controller = new AbortController();
+    (async () => {
+      try {
+        const response = await fetch(
+          "https://banki-six.vercel.app/api/fetch_cards",
+          { signal: controller.signal }
+        );
+        const data = await response.json();
         setActiveCard(data);
         setIsLoading(false);
-      })
-      .catch((error) => console.error(error));
+      } catch (e) {
+        console.log("err: ", e);
+      }
+    })();
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   return (

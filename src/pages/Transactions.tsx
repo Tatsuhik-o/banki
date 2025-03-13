@@ -284,19 +284,36 @@ export default function Transactions() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/fetch_id_card?id=3`)
-      .then((response) => response.json())
-      .then((data) => {
+    const controller = new AbortController();
+    (async () => {
+      try {
+        const response = await fetch(
+          "https://banki-six.vercel.app/api/fetch_id_card?id=3",
+          { signal: controller.signal }
+        );
+        const data = await response.json();
         setActiveCard(data[0]);
         setIsLoading(false);
-      })
-      .catch((error) => console.error(error));
-    fetch("http://localhost:3000/api/fetch_transactions")
-      .then((response) => response.json())
-      .then((data) => {
+      } catch (e) {
+        console.log("err: ", e);
+      }
+    })();
+    (async () => {
+      try {
+        const response = await fetch(
+          "https://banki-six.vercel.app/api/fetch_transactions",
+          { signal: controller.signal }
+        );
+        const data = await response.json();
         setActiveTransactions(data);
         setAllTransactions(data);
-      });
+      } catch (e) {
+        console.log("err: ", e);
+      }
+    })();
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   const onlyExpenses = useCallback(() => {
