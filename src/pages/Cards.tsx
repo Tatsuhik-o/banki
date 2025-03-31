@@ -152,10 +152,9 @@ export default function Cards() {
     const controller = new AbortController();
     (async () => {
       try {
-        const response = await fetch(
-          "https://banki-six.vercel.app/api/fetch_cards",
-          { signal: controller.signal }
-        );
+        const response = await fetch("http://localhost:3000/api/fetch_cards", {
+          signal: controller.signal,
+        });
         const data = await response.json();
         setActiveCard(data);
         setIsLoading(false);

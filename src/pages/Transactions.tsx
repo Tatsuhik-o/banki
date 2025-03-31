@@ -288,7 +288,7 @@ export default function Transactions() {
     (async () => {
       try {
         const response = await fetch(
-          "https://banki-six.vercel.app/api/fetch_id_card?id=3",
+          "http://localhost:3000/api/fetch_id_card?id=3",
           { signal: controller.signal }
         );
         const data = await response.json();
@@ -301,7 +301,7 @@ export default function Transactions() {
     (async () => {
       try {
         const response = await fetch(
-          "https://banki-six.vercel.app/api/fetch_transactions",
+          "http://localhost:3000/api/fetch_transactions",
           { signal: controller.signal }
         );
         const data = await response.json();

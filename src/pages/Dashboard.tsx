@@ -87,9 +87,7 @@ export default function Dashboard() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(
-          "https://banki-six.vercel.app/api/fetch_cards"
-        );
+        const response = await fetch("http://localhost:3000/api/fetch_cards");
         const data = await response.json();
         setActiveCard(data);
         setIsLoading(false);
